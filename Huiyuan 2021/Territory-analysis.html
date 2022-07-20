@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Hello, world!</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- Material Kit CSS -->
+    <link href="assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <!-- libs -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <div class="wrapper ">
+        <div class="sidebar" data-color="purple" data-background-color="white">
+            <div class="logo">
+                <a href="#" class="simple-text logo-mini">
+                    专利地图
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Tendency-analysis.html">
+                            <!-- <i class="material-icons">dashboard</i> -->
+                            <p>趋势分析</p>
+                        </a>
+                    </li>
+                    <!-- your sidebar here -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Technology-analysis.html">
+                            <!-- <i class="material-icons">library_books</i> -->
+                            <p>技术分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Patentee-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>专利权人分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./Territory-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>地域分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Partnership-analysis.html">
+                            <!-- <i class="material-icons">notifications</i> -->
+                            <p>合作关系分析</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- your content here -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">历年省市专利动向图</h4>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div style="display: flex;justify-content: right;align-items: center;">
+                                                层次：
+                                                <select class="selectpicker" id="select_multiBarChart_unit_numbers"
+                                                    style="background-color: transparent; color: aliceblue; border-color: #FFF5EE; border-radius: 10px; text-align: center;">
+                                                    <option selected value="1">省份</option>
+                                                    <option value="2">城市</option>
+                                                    <option value="3">专利权人</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="multiBarChart_unit_numbers" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">省市专利占有比例图</h4>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div style="display: flex;justify-content: right;align-items: center;">
+                                                层次：
+                                                <select class="selectpicker" id="select_pieChart_patentNumber"
+                                                    style="background-color: transparent; color: aliceblue; border-color: #FFF5EE; border-radius: 10px; text-align: center;">
+                                                    <option selected value="1">省份</option>
+                                                    <option value="2">城市</option>
+                                                    <option value="3">专利权人</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="pieChart_patentNumber" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">专利数热力图</h4>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- KEY! 控件位置 -->
+                                            <div style="display: flex;justify-content: right;align-items: center;">
+                                                层次：
+                                                <select class="selectpicker" id="select_heatmap_years_unit"
+                                                    style="background-color: transparent; color: aliceblue; border-color: #FFF5EE; border-radius: 10px; text-align: center;">
+                                                    <option selected value="1">省份</option>
+                                                    <option value="2">城市</option>
+                                                    <option value="3">专利权人</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="heatmap_years_unit" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">专利数年度排行榜</h4>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- KEY! 控件位置 -->
+                                            <div style="display: flex;justify-content: right;align-items: center;">
+                                                层次：
+                                                <select class="selectpicker" id="select_rankTable_patentsNumber"
+                                                    style="background-color: transparent; color: aliceblue; border-color: #FFF5EE; border-radius: 10px; text-align: center;">
+                                                    <option selected value="1">省份</option>
+                                                    <option value="2">城市</option>
+                                                    <option value="3">专利权人</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="rankTable_patentsNumber" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var handle
+    //每一次用于绘图的数据都放在data中, 用列表因为有时绘图需要有序
+
+    //IPC分类号各部字母对应的含义
+    var sections = { 'A': '人类生活必须', 'B': '作业；运输', 'C': '化学；冶金', 'D': '纺织；造纸', 'E': '固定建筑物', 'F': '机械工程；照明；加热；武器；爆破', 'G': '物理', 'H': '电学' }
+
+    //文件路径
+    var path = ''
+
+    //功能性函数集合
+    var utility = {
+        //load data from specific path
+        'load': async function (path) {
+            var temp = []
+            await d3.csv(path, d => {
+                temp.push(d)
+            })
+            return temp
+        },
+
+        'selected': function (id) {
+            var select = document.getElementById(`${id}`)
+            var index = select.selectedIndex
+            var value = select.options[index].innerText
+            return value
+        },
+
+        'range': function (start, end) {
+            var result = []
+            for (var i = start; i < end; i++) {
+                result.push(i)
+            }
+            return result
+        }
+    }
+
+    var rankTable_patentsNumber = async function () {
+        var handle = {}
+        handle['select_id'] = 'select_rankTable_patentsNumber'
+
+        async function process() {
+            var temp = Object.keys(handle['data'][0])
+            var years = temp.slice(0, temp.length - 3)
+            var result = {}
+            var values = {}
+            years.map(d => {
+                //先得到d年的字典列表
+                result[d] = handle['data'].map(d2 => {
+                    return {
+                        [handle.unit]: d2[handle.unit],
+                        value: d2[d]
+                    }
+                })
+                //然后排序 
+                //注意sort不生成返回值 
+                result[d].sort((a, b) => b.value - a.value)
+                //取排名前三的单位
+                result[d] = result[d].slice(0, 3)
+                temp = []
+                temp[0] = result[d].map(d => d[handle.unit])
+                temp[1] = result[d].map(d => d['value'])
+                result[d] = []
+                values[d] = []
+                for (var i = 0; i < 3; i++) {
+                    result[d][i] = `${temp[0][i]}`
+                    values[d][i] = `${temp[1][i]}`
+                }
+            })
+            result = { names: result, values: values }
+            return result
+        }
+
+        async function draw() {
+            var chartDom = document.getElementById('rankTable_patentsNumber');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            var years = Object.keys(handle['data']['values'])
+
+            var data = []
+            for (var row = 0; row < years.length; row++) {
+                for (var column = 0; column < 3; column++) {
+                    // value = +handle.data['values'][years[row]][column]
+                    // [years[+value[1]]][+value[0]]
+                    data.push([row, column, +handle.data['values'][years[row]][column]])
+                    //handle.data[years[row]][column]
+                }
+            }
+
+            data = data.map(function (item) {
+                return [item[1], item[0], item[2] || '-'];
+            });
+
+            option = {
+                tooltip: {
+                    position: 'top',
+                    formatter: function (params) {
+                        var value = params.value
+                        // console.log(params)
+                        var name = handle.data['names'][years[+value[1]]][+value[0]]
+                        var count = handle.data['values'][years[+value[1]]][+value[0]]
+                        return `单位：${name}<br/>专利数：${count}`
+                    }
+                },
+                grid: {
+                    height: '85%',
+                    top: '3%',
+                    left: '7%',
+                    right: '0%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['第一', '第二', '第三'],
+
+                },
+                yAxis: {
+                    type: 'category',
+                    data: years,
+                    axisLabel: { interval: 0 },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    },
+                    splitArea: {
+                        show: true
+                    },
+                    // axisPointer: {
+                    //     trigger : 'item',
+                    //     type: 'cross'
+                    // }
+                },
+                visualMap: {
+                    type: 'continuous',
+                    min: 0,
+                    max: 10,
+                    show: false,
+                    color: ['#fff', '#fff'],
+                    calculable: true,
+                    orient: 'horizontal',
+                    left: 'center',
+                    bottom: '15%'
+                },
+                series: [{
+                    // name: 'Punch Card',
+                    type: 'heatmap',
+                    data: data,
+                    label: {
+                        show: true,
+                        formatter: function (params) {
+                            var value = params.value
+                            // console.log(_data)
+                            return handle.data['names'][years[+value[1]]][+value[0]]
+                            // console.log(_data[years[+value[1]]][+value[0]])
+                            // return handle.data[+value[0]][+value[1]]
+                        }
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        }
+                    }
+
+                }],
+
+            };
+
+            option && myChart.setOption(option);
+
+        }
+
+        handle['update'] = async function () {
+
+            handle['unit'] = utility.selected(handle['select_id'])
+
+            handle['data'] = await utility.load(`resource/国内${handle.unit}量子年度发展情况.csv`)
+
+            handle['data'] = await process()
+
+            await draw()
+        }
+
+        d3.select(`#${handle['select_id']}`)
+            .on('change', async function () {
+                await handle['update']()
+            })
+
+        return handle
+    }
+
+    var pieChart_patentNumber = async function () {
+        var handle = {}
+
+        handle['draw'] = async function (unit) {
+            var chartDom = document.getElementById('pieChart_patentNumber');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            var units = handle['data'].map(d => d[unit])
+            var types = ['企事业单位', '科研院所', '大专院校', '机关团体', '总体']
+            var label_types = ['企业单位', '科研院所', '大专院校', '机关团体', '总体']
+
+            var data = {}
+            //初始化data
+            types.map(d => {
+                data[d] = []
+            })
+            // 填充
+            handle['data'].map(d => {
+                types.map(d2 => {
+                    var temp = { name: d[unit], value: +d[d2] }
+                    data[d2].push(temp)
+                })
+            })
+            //构建绘制变量
+            Object.keys(data).map(key => {
+                data[key] = data[key].sort((a, b) => b['value'] - a['value'])
+            })
+
+            //每个饼图的中心位置
+            var centers = [['13%', '50%'], ['30%', '50%'], ['50%', '50%'], ['70%', '50%'], ['87%', '50%']]
+
+
+            //创建series
+            var series = types.map((d, i) => {
+                return {
+                    name: d,
+                    type: 'pie',
+                    radius: '25%',
+                    center: centers[i],
+                    data: data[d],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    minShowLabelAngle: 10,
+                    label: {
+                        formatter: '{b}',
+                        fontSize: 10,
+                    },
+                    itemStyle: {
+                        // labelLine :{
+                        //     show:false,
+                        //     length : 10000
+                        // }
+                        normal: {
+                            // color: 各异,
+                            borderWidth: 1,
+                            label: {
+                                show: true,//数据标签显示
+                                position: 'outer',
+                                textStyle://数据标签的字体配置，与其他组件相同
+                                {
+                                    fontSize: 12,//字号
+                                    fontWeight: 'normal',//粗细【normal\bold\bolder\lighter】
+                                    fontFamily: 'Microsoft YaHei',//字体【 'serif'\'monospace'\'Arial'\'Courier New'\'Microsoft YaHei'】
+                                    color: ''//颜色各异
+                                },
+                                formatter: '{b}'//a:系列名，就是你上面写的name半径模型，b：数据名，就是rose1，c：数据值，d百分比
+                            },
+                            labelLine: {
+                                show: true,//数据标签引导线
+                                length: 1,
+                                lineStyle: {
+                                    width: 1,
+                                    type: 'solid'
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+
+            var positions = [['10%', '80%'], ['27%', '80%'], ['47%', '80%'], ['67%', '80%'], ['87%', '80%'],]
+            var graphic = positions.map((d, i) => {
+                return {
+                    type: 'text',
+                    left: d[0],
+                    top: d[1],
+                    style: {
+                        fill: '#333',
+                        text: label_types[i],
+                        fontSize: 16
+                    }
+                }
+            })
+
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+
+                series: series,
+
+                graphic: graphic
+            };
+
+            option && myChart.setOption(option);
+        }
+
+        handle['update'] = async function () {
+            //reset data
+            handle['data'] = []
+            //get 'select' value
+            var unit = utility['selected']('select_pieChart_patentNumber')
+            //load data
+            handle['data'] = await utility.load(`resource/for_pieChart/${unit}.csv`)
+
+            console.log(handle['data'])
+            // handle['data'] = await handle['preprocess'](unit)
+
+            await handle['draw'](unit)
+
+        }
+
+        await d3.select('#select_pieChart_patentNumber')
+            .on('change', function () {
+                handle['update']()
+            })
+
+        return handle
+    }
+
+    var multiBarChart_unit_numbers = async function () {
+        var handle = {}
+
+        var margin = { left: 100, right: 100, top: 50, bottom: 80 }
+
+        async function create_slider() {
+            var slider_width = 800
+            var slider_height = 40
+            var track_middle = margin.left
+            var start_year = 2000
+            var end_year = 2020
+            var svg_slider = d3.select("#multiBarChart_unit_numbers")
+                .append("svg")
+                .attr("width", slider_width).attr("height", slider_height)
+                .attr("transform", `translate(0,550)`)
+            var yearScale = d3.scaleLinear()
+                .domain([start_year, end_year])
+                .range([margin.left, slider_width - margin.right])
+                .clamp(true)//used to lock value in specific range
+
+            var yearAxis = d3.axisBottom(yearScale)
+
+            svg_slider.append("g")
+                .attr("transform", `translate(0,${slider_height / 2})`)
+                .call(yearAxis)
+            // .attr("z-index",200)
+
+            var slider = svg_slider.append("g").attr("transform", `translate(0, ${slider_height / 4})`).attr("class", "slider")
+                .call(g => g.append("line") //border
+                    .attr("id", "border")
+                    .attr("x1", margin.left)
+                    .attr("x2", slider_width - margin.right)
+                    .attr("stroke", "red")
+                    .attr("stroke-width", slider_height / 4 + 2)
+                    .attr("stroke-linecap", "round")
+                    .attr("opacity", 0.7))
+                .call(g => g.append("line") //track : left part
+                    .attr("x1", margin.left)
+                    .attr("x2", track_middle)
+                    .attr("id", "track_left")
+                    .attr("stroke", "green")
+                    .attr("stroke-width", slider_height / 4)
+                    .attr("stroke-linecap", "round")
+                    .attr("opacity", 0.3))
+                .call(g => g.append("line") //track : right part
+                    .attr("id", "track_right")
+                    .attr("x1", track_middle)
+                    .attr("x2", slider_width - margin.right)
+                    .attr("stroke", "gray")
+                    .attr("stroke-width", slider_height / 4)
+                    .attr("stroke-linecap", "round"))
+                .call(g => g.append("circle")// handle
+                    .attr("id", "handle")
+                    .attr("cx", margin.left)
+                    .attr("r", slider_height / 5)
+                    .attr("fill", "pink")) //overlay should be appended after handle
+                .call(g => g.append("line")//overlay
+                    .attr("id", "overlay")
+                    .attr("x1", track_middle)
+                    .attr("x2", slider_width)
+                    .attr("stroke", "transparent")
+                    .attr("stroke-width", 15))
+                .call(g => g.append("text")//label
+                    .attr("id", "slider-label")
+                    .attr("transform", `translate(${slider_width - margin.right + 20},${slider_height / 3})`)
+                    .text(`${start_year}`))
+                .call(g => {
+                    d3.select("#overlay").call(d3.drag()// handle event
+                        .on("start drag", function (event, d) {
+                            var year = Math.round(yearScale.invert(event.x))
+                            d3.select("#handle").attr("cx", yearScale(year))
+                            d3.select("#track_left").attr("x2", yearScale(year))
+                            d3.select("#track_right").attr("x1", yearScale(year))
+                        })
+                        .on("end", async function (event, d) {
+                            var year = Math.round(yearScale.invert(event.x))
+                            d3.select("#slider-label").text(year)
+                            //invert year to clamp value
+                            await handle['update']
+                        }))
+                })
+
+        }
+
+        async function preprocess() {
+            var result = {}
+            Object.keys(handle['data']).map(d => {
+                result[d] = {}
+                handle['data'][d].map(item => {
+                    result[d][item[handle.unit]] = item
+                })
+            })
+            //提取专利数量和unit，通过专利数量对省份进行排序
+            //units是排完序的unit
+            var units = handle['data']['专利数量'].map(d => {
+                return {
+                    [handle.unit]: d[handle['unit']],
+                    '专利数量': d['专利数量']
+                }
+            }).sort((a, b) => b['专利数量'] - a['专利数量']).map(d => d[handle.unit])
+
+            handle['units'] = units
+
+            //每一个unit都要有四个数值
+            var to_return = {}
+            units.map(d => {
+                to_return[d] = {}
+                to_return[d][handle['unit']] = d
+                handle['properties'].map(property => {
+                    to_return[d][property] = +result[property][d][handle['year']]
+                })
+            })
+            return to_return
+        }
+
+        async function process(temp) {
+            var keys = [handle['unit'], ...handle['properties']]
+            var values = Object.values(temp).map(d => Object.values(d))
+            // var type = typeof (keys)
+            //NOTE: splice没有返回值
+            values.splice(0, 0, keys)
+            return values
+        }
+
+        async function draw() {
+            var chartDom = document.getElementById('multiBarChart_unit_numbers');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            //只用于x轴标签
+            var years = handle['years'].map(d => `${d}-01-01`)
+
+            var label_size = handle['unit'] === '省份' ? 14 : 12
+
+            //"years" contain detailed date, but "handle['year']" contain only years
+            var options = handle['years'].map(year => {
+                return {
+                    series:
+                        handle['properties'].map((d, i) => {
+                            // var obj = {}
+
+                            // var max = 0;
+                            // var sum = 0;
+                            var temp = handle['data'][`${year}`].slice(1);
+                            return {
+                                data: temp.map((item, i2) => {
+                                    // max = Math.max(max, item[i + 1]);
+                                    // sum += item[i + 1];
+                                    return {
+                                        name: handle['units'][i2],
+                                        value: item[i + 1]
+                                    }
+                                })
+                            }
+                            // obj[year + 'max'] = Math.floor(max / 100) * 100;
+                            // obj[year + 'sum'] = sum;
+
+                            // return obj
+                        })
+
+                }
+            })
+
+            option = {
+
+                legend: {
+                    left: 'right',
+                    data: handle.properties
+                },
+                timeline: {
+                    axisType: 'category',
+                    // realtime: false,
+                    // loop: false,
+                    autoPlay: true,
+                    // currentIndex: 2,
+                    playInterval: 1000,
+                    // controlStyle: {
+                    //     position: 'left'
+                    // },
+                    data: years,
+                    label: {
+                        formatter: function (s) {
+                            return (new Date(s)).getFullYear();
+                        }
+                    }
+                },
+                tooltip: {},
+                // dataset: {
+                //     source: handle['data']
+                // },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: handle['units'],
+                        axisLabel: {
+                            interval: 0,
+                            fontSize: label_size
+                        }
+                    },
+
+                ],
+                yAxis: [
+                    { type: 'value', max: 2000 },
+                ],
+                series: handle.properties.map(d => {
+                    return {
+                        name: d,
+                        type: 'bar'
+                    }
+                }),
+                options: options
+                // dataZoom: [{
+                //     type: 'inside',
+                //     start: 0,
+                //     end: 100
+                // }, {
+                //     start: 0,
+                //     end: 10
+                // }]
+            };
+
+            option && myChart.setOption(option);
+
+        }
+
+        handle['update'] = async function () {
+            //await create_slider()
+
+            //handle['year'] = d3.select('#slider-label').text()
+
+            handle['years'] = utility.range(2000, 2021)
+
+            handle['unit'] = utility.selected('select_multiBarChart_unit_numbers')
+
+            handle.properties = ['专利数量', '发明人', '引用', '被引用']
+
+            handle['data'] = {}
+
+            for (var i = 0; i < handle.properties.length; i++) {
+                handle['data'][handle.properties[i]] = await utility.load(`resource/量子TOP20/${handle.unit}量子${handle.properties[i]}TOP20.csv`)
+            }
+
+            var temp = {}
+            for (var i = 0; i < handle['years'].length; i++) {
+                handle['year'] = handle['years'][i]
+                temp[`${handle['year']}`] = await preprocess()
+                temp[`${handle['year']}`] = await process(temp[`${handle['year']}`])
+            }
+
+            handle['data'] = temp
+
+            await draw()
+        }
+
+        d3.select('#select_multiBarChart_unit_numbers')
+            .on('change', async function () {
+                await handle['update']()
+            })
+
+        return handle
+    }
+
+    var heatmap_years_unit = async function () {
+        var handle = {}
+        handle['select_id'] = 'select_heatmap_years_unit'
+
+        async function process() {
+            var temp = Object.keys(handle['data'][0])
+            var years = temp.slice(0, temp.length - 2)
+            var units = handle['data'].map(d => d[handle.unit])
+            var values = handle['data'].map(d => Object.values(d).slice(0, temp.length - 2))
+            return {
+                years: years,
+                units: units,
+                values: values
+            }
+        }
+
+        async function draw() {
+            var chartDom = document.getElementById('heatmap_years_unit');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            var max = 200
+            var end = 100
+
+            if (handle['unit'] === '城市') {
+                max = 50
+                end = 15
+            } else if (handle['unit'] === '专利权人') {
+                max = 20
+                end = 1
+            }
+
+            var years = handle['data'].years
+            var units = handle['data'].units
+            var values = handle['data'].values
+
+            var data = []
+            for (var row = 0; row < units.length; row++) {
+                for (var column = 0; column < years.length; column++) {
+                    data.push([row, column, +values[row][column]])
+                }
+            }
+
+            data = data.map(function (item) {
+                return [item[1], item[0], item[2] || '-'];
+            });
+
+            option = {
+                tooltip: {
+                    position: 'top',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+
+                },
+                grid: {
+                    height: '85%',
+                    top: '3%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: years,
+                },
+                yAxis: {
+                    name: `${handle.unit}`,
+                    type: 'category',
+                    data: units,
+                    axisLabel: { interval: 0 },
+                    // splitArea: {
+                    //     show: true
+                    // },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    name: handle['unit'],
+                    nameGap: 25,
+                    nameLocation: 'middle',
+                    nameTextStyle: {
+                        fontSize: 18
+                    },
+                },
+                visualMap: {
+                    min: 0,
+                    max: max,
+                    calculable: true,
+                    orient: 'horizontal',
+                    left: '10%',
+                    bottom: '92%'
+                },
+                series: [{
+                    // name: 'Punch Card',
+                    type: 'heatmap',
+                    data: data,
+
+                    label: {
+                        show: false
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                }],
+                dataZoom: [
+                    {
+                        show: true,
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        show: true,
+                        yAxisIndex: 0,
+                        filterMode: 'empty',
+                        width: 30,
+                        height: '80%',
+                        showDataShadow: false,
+                        left: '93%',
+                        end: end
+                    }
+                ],
+            };
+
+            option && myChart.setOption(option);
+
+        }
+
+        handle['update'] = async function () {
+            handle['unit'] = utility.selected(handle['select_id'])
+
+            handle['data'] = await utility.load(`resource/国内${handle.unit}量子年度发展情况.csv`)
+
+            handle['data'] = await process()
+
+            await draw()
+        }
+
+        d3.select(`#${handle.select_id}`)
+            .on('change', async function () {
+                await handle['update']()
+            })
+
+        return handle
+    }
+
+    //
+    run()
+
+    //运行程序的核心函数
+    async function run() {
+        //chart 1
+        handle = await multiBarChart_unit_numbers()
+        await handle['update']()
+
+        handle = await heatmap_years_unit()
+        await handle['update']()
+
+        handle = await rankTable_patentsNumber()
+        await handle['update']()
+
+        handle = await pieChart_patentNumber()
+        await handle['update']()
+    }
+</script>
+
+</html>

@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Hello, world!</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- Material Kit CSS -->
+    <link href="assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <!-- libs -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <div class="wrapper ">
+        <div class="sidebar" data-color="purple" data-background-color="white">
+            <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+            <div class="logo">
+                <a href="#" class="simple-text logo-mini">
+                    专利地图
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./Tendency-analysis.html">
+                            <!-- <i class="material-icons">dashboard</i> -->
+                            <p>趋势分析</p>
+                        </a>
+                    </li>
+                    <!-- your sidebar here -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Technology-analysis.html">
+                            <!-- <i class="material-icons">library_books</i> -->
+                            <p>技术分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./Patentee-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>专利权人分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Territory-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>地域分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item" >
+                        <a class="nav-link" href="./Partnership-analysis.html">
+                            <!-- <i class="material-icons">notifications</i> -->
+                            <p>合作关系分析</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- your content here -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">国内机构专利数总览图</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="barChart_unit_patentsNumber" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">国内机构专利竞争分析</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="heatmap_patentees_IPC" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var handle
+    //每一次用于绘图的数据都放在data中, 用列表因为有时绘图需要有序
+
+    //IPC分类号各部字母对应的含义
+    var sections = { 'A': '人类生活必须', 'B': '作业；运输', 'C': '化学；冶金', 'D': '纺织；造纸', 'E': '固定建筑物', 'F': '机械工程；照明；加热；武器；爆破', 'G': '物理', 'H': '电学' }
+
+    //文件路径
+    var path = ''
+
+    //功能性函数集合
+    var utility = {
+        //load data from specific path
+        'load': async function (path) {
+            var temp = []
+            await d3.csv(path, d => {
+                temp.push(d)
+            })
+            return temp
+        },
+
+        'selected': function (id) {
+            var select = document.getElementById(`${id}`)
+            var index = select.selectedIndex
+            var value = select.options[index].innerText
+            return value
+        },
+
+        'range': function (start, end) {
+            var result = []
+            for (var i = start; i < end; i++) {
+                result.push(i)
+            }
+            return result
+        }
+    }
+
+    //
+    var barChart_unit_patentsNumber = async function () {
+        var handle = {}
+
+        async function preprocess() {
+            return handle['data'].map(d => [d['专利权人'], d['专利数量']])
+        }
+
+        async function draw() {
+            var chartDom = document.getElementById('barChart_unit_patentsNumber');
+            var myChart = echarts.init(chartDom);
+            var option;
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                dataset: [{
+                    dimensions: ['name', 'value'],
+                    source: handle['data']
+                }, {
+                    transform: {
+                        type: 'sort',
+                        config: { dimension: 'value', order: 'desc' }
+                    }
+                }],
+                xAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        interval: '50',
+                        formatter: function (value, index) {
+                            return index
+                        }
+                    },
+                    name: '机构编号',
+                    nameGap: 25,
+                    nameLocation: 'middle',
+                    nameTextStyle: {
+                        fontSize: 18
+                    },
+
+                },
+                yAxis: { name: '专利数（件）' },
+                series: {
+                    type: 'bar',
+                    encode: { x: 'name', y: 'value' },
+                    datasetIndex: 1,
+                    large: true
+                },
+                dataZoom: [
+                    {
+                        show: true,
+                        start: 0,
+                        end: 0.4
+                    },
+                    {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        show: true,
+                        yAxisIndex: 0,
+                        filterMode: 'empty',
+                        width: 30,
+                        height: '80%',
+                        showDataShadow: false,
+                        left: '93%'
+                    }
+                ],
+            };
+
+            option && myChart.setOption(option);
+        }
+
+        handle['update'] = async function () {
+            handle['data'] = await utility.load('resource/国内-专利权人-发展状况.csv')
+            handle['data'] = await preprocess()
+            await draw()
+        }
+
+        return handle
+    }
+
+    var heatmap_patentees_IPC = async function () {
+        var handle = {}
+
+        async function preprocess() {
+            //返回的对象是根据专利数量降序的
+            return handle.data.map(d => {
+                return {
+                    '专利权人': d['专利权人'],
+                    '专利数量': d['专利数量'],
+                    '主IPC分类号列表': d['主IPC分类号列表'].split("\n").map(s => s.slice(0, 4))
+                }
+            }).sort((a, b) => b['专利数量'] - a['专利数量'])
+        }
+
+        async function process() {
+            // handle.data.sum = Math.sum(handle.data.map(d => d['专利数量']))
+            //获取排名前n的IPC
+            var IPCs_count = {}
+            handle.data.map(d => d['主IPC分类号列表']).map(d => {
+                d.map(IPC => {
+                    IPCs_count[IPC] = IPCs_count[IPC] === undefined ? 1 : IPCs_count[IPC] + 1
+                })
+            })
+            console.log(IPCs_count)
+            IPCs_count = Object.keys(IPCs_count).map(IPC => {
+                return {
+                    [IPC]: IPCs_count[IPC]
+                }
+            }).sort((a, b) => Object.values(b)[0] - Object.values(a)[0]).slice(0, handle.IPCs_to_show)
+
+            //获取排名前n的专利权人
+            var patentees = handle.data.slice(0, handle.patentees_to_show).map(d => d['专利权人'])
+            var IPCs = IPCs_count.map(d => Object.keys(d)[0])
+
+            var to_return = {}
+            //初始化
+            patentees.map(patentee => {
+                to_return[patentee] = {}
+                IPCs.map(IPC => {
+                    to_return[patentee][IPC] = 0
+                })
+            })
+
+            //遍历前n个专利权人的IPC分类号列表
+            handle.data.filter(d => patentees.indexOf(d['专利权人']) != -1).map(d => {
+                d['主IPC分类号列表'].map(IPC => {
+                    //如果该IPC在前n个IPC分类号中，则进行统计
+                    if (IPCs.indexOf(IPC) != -1) {
+                        to_return[d['专利权人']][IPC]++
+                    }
+
+                })
+            })
+
+            var data = []
+            for (var i = 0; i < IPCs.length; i++) {
+                for (var j = 0; j < patentees.length; j++) {
+                    data.push([i, j, to_return[patentees[j]][IPCs[i]]])
+                }
+            }
+
+            data = data.map(function (item) {
+                return [item[1], item[0], item[2] || '-'];
+            });
+
+            to_return = {
+                '专利权人': patentees,
+                'IPCs': IPCs,
+                data: data
+            }
+
+            return to_return
+
+        }
+
+        async function draw() {
+
+            var chartDom = document.getElementById('heatmap_patentees_IPC');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            var data = handle['data'].data
+
+            console.log("Heatmap patentees IPC : ", data)
+
+            option = {
+                tooltip: {
+                    position: 'top'
+                },
+                grid: {
+                    height: '80%',
+                    top: '5%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: handle['data']['专利权人'],
+                    splitArea: {
+                        show: true
+                    },
+                    axisLabel: { interval: 0, rotate: 20, fontSize:9 },
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    data: handle.data.IPCs,
+                    splitArea: {
+                        show: true
+                    }
+                },
+                visualMap: {
+                    min: 0,
+                    max: 350,
+                    calculable: true,
+                    orient: 'vertical',
+                    right: '0',
+
+                    bottom: 'center'
+                },
+                series: [{
+                    type: 'heatmap',
+                    data: data,
+                    label: {
+                        show: true
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            };
+
+            option && myChart.setOption(option);
+
+        }
+
+        handle['update'] = async function () {
+            handle.patentees_to_show = 20
+
+            handle.IPCs_to_show = 10
+
+            handle.data = await utility.load('resource/国内-专利权人-发展状况.csv')
+
+            handle.data = await preprocess()
+
+            handle.data = await process()
+
+            await draw()
+        }
+
+        return handle
+    }
+
+    run()
+
+    //运行程序的核心函数
+    async function run() {
+        //chart 1
+        handle = await barChart_unit_patentsNumber()
+        await handle['update']()
+
+        handle = await heatmap_patentees_IPC()
+        await handle['update']()
+    }
+</script>
+
+</html>

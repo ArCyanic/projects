@@ -1,0 +1,30 @@
+{
+  "name": "chinavis2022",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^1.1.4",
+    "@types/d3": "^7.4.0",
+    "@types/echarts": "^4.9.15",
+    "axios": "^0.27.2",
+    "d3": "^7.4.4",
+    "echarts": "^5.3.2",
+    "element-plus": "^2.1.11",
+    "pinia": "^2.0.14",
+    "qs": "^6.10.3",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.9.7",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.7",
+    "vue-tsc": "^0.34.7"
+  }
+}

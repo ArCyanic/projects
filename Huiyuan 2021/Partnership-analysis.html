@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Hello, world!</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- Material Kit CSS -->
+    <link href="assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <!-- libs -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <div class="wrapper ">
+        <div class="sidebar" data-color="purple" data-background-color="white">
+            <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+            <div class="logo">
+                <a href="#" class="simple-text logo-mini">
+                    专利地图
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./Tendency-analysis.html">
+                            <!-- <i class="material-icons">dashboard</i> -->
+                            <p>趋势分析</p>
+                        </a>
+                    </li>
+                    <!-- your sidebar here -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Technology-analysis.html">
+                            <!-- <i class="material-icons">library_books</i> -->
+                            <p>技术分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Patentee-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>专利权人分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Territory-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>地域分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active" >
+                        <a class="nav-link" href="./Partnership-analysis.html">
+                            <!-- <i class="material-icons">notifications</i> -->
+                            <p>合作关系分析</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- your content here -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">合作关系图</h4>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <!-- KEY! 控件位置 -->
+                                            <div style="display: flex;justify-content: right;align-items: center;">
+                                                层次：
+                                                <select class="selectpicker" id="select_graph"
+                                                    style="background-color: transparent; color: aliceblue; border-color: #FFF5EE; border-radius: 10px; text-align: center;">
+                                                    <option selected value="1">关键城市</option>
+                                                    <option value="2">省份</option>
+                                                    <option value="3">城市</option>
+                                                    <option value="4">专利权人</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="graph" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var handle
+    //每一次用于绘图的数据都放在data中, 用列表因为有时绘图需要有序
+    var data = []
+    //用于统计专利数量的
+    var data_count = []
+
+    //IPC分类号各部字母对应的含义
+    var sections = { 'A': '人类生活必须', 'B': '作业；运输', 'C': '化学；冶金', 'D': '纺织；造纸', 'E': '固定建筑物', 'F': '机械工程；照明；加热；武器；爆破', 'G': '物理', 'H': '电学' }
+
+    //文件路径
+    var path = ''
+
+    //功能性函数集合
+    var utility = {
+        //load data from specific path
+        'load': async function (path) {
+            var temp = []
+            await d3.csv(path, d => {
+                temp.push(d)
+            })
+            return temp
+        },
+
+        'selected': function (id) {
+            var select = document.getElementById(`${id}`)
+            var index = select.selectedIndex
+            var value = select.options[index].innerText
+            return value
+        },
+
+        'range': function (start, end) {
+            var result = []
+            for (var i = start; i < end; i++) {
+                result.push(i)
+            }
+            return result
+        }
+    }
+
+    //
+
+    var graph = async function () {
+        var handle = {}
+        handle['select_id'] = 'select_graph'
+
+        async function process() {
+            var data = {}
+
+            data.nodes = []
+
+            data.links = []
+
+            data.categories = utility.range(0, 10).map((d, i) => { return { name: `Tier ${d + 1}( >= ${2 ** (9 - i)})` } })
+
+            var max_symbolSize
+            var min_symbolSize
+            if (handle['unit'] === '省份' || '关键城市') {
+                max_symbolSize = 30
+                min_symbolSize = 5
+            } else if (handle['unit'] === '城市') {
+                max_symbolSize = 20
+                min_symbolSize = 3
+            } else {
+                max_symbolSize = 10
+                min_symbolSize = 1
+            }
+
+
+            var sizeScale = d3.scaleLinear()
+                .domain(d3.extent(handle.data.map(d => +d['权重'])))
+                .range([min_symbolSize, max_symbolSize])
+
+            // var colorScale = d3.scaleLinear()
+            //     .domain(d3.extent(handle.data.map(d => +d['权重'])))
+            //     .range(["pink", 'steelblue'])
+
+            // console.log(sizeScale(100))
+
+            handle.data.map(item => {
+                var two_nodes = item['结点'].split(",")
+                var weight = +item['权重']
+                var category = 0
+
+                if (two_nodes[0] === two_nodes[1].slice(1)) {
+                    //确定category 
+                    for (var i = 0; i < data.categories.length; i++) {
+                        if (weight <= 2 ** i) {
+                            category = data.categories.length - i
+                            break
+                        }
+                        // if(i === data.categories.length - 1){
+                        //     category = 0
+                        //     break
+                        // }
+                    }
+
+                    //构造node
+                    data.nodes.push({
+                        name: two_nodes[0],
+                        value: weight,
+                        label: {
+                            show: category === 0
+                        },
+                        symbolSize: sizeScale(weight),
+                        category: category
+                        // x : 1,
+                        // y : 1
+                    })
+                } else {
+                    data.links.push({ source: two_nodes[0], target: two_nodes[1].slice(1), value: weight })
+                }
+            })
+            data.nodes.sort((a, b) => b.value - a.value)
+
+            return data
+        }
+
+        async function draw() {
+            var chartDom = document.getElementById('graph');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            var graph = handle['data']
+
+            var symbolSize_criticality = 5
+            if (handle['unit'] === '省份' || '关键城市') {
+                symbolSize_criticality = 1
+            } else if (handle['unit'] === '城市') {
+                symbolSize_criticality = 10
+            }
+
+            // myChart.showLoading();
+
+            // graph.nodes.forEach(function (node) {
+            //     node.label = {
+            //         show: node.symbolSize > symbolSize_criticality
+            //     };
+            // });
+
+            console.log(graph)
+
+            option = {
+                // title: {
+                //     text: 'Les Miserables',
+                //     subtext: 'Circular layout',
+                //     top: 'bottom',
+                //     left: 'right'
+                // },
+                tooltip: {},
+                legend: [{
+                    right : 30,
+                    orient: 'vertical',
+                    data: graph.categories.map(function (a) {
+                        return a.name;
+                    })
+                }],
+                animationDurationUpdate: 1500,
+                animationEasingUpdate: 'quinticInOut',
+                series: [
+                    {
+                        // name: 'Les Miserables',
+                        type: 'graph',
+                        layout: 'circular',
+                        circular: {
+                            rotateLabel: true
+                        },
+                        roam: true,
+                        data: graph.nodes,
+                        links: graph.links,
+                        categories: graph.categories,
+                        // categories: graph.categories,
+                        roam: true,
+                        label: {
+                            position: 'right',
+                            formatter: '{b}'
+                        },
+                        lineStyle: {
+                            color: 'source',
+                            curveness: 0.3
+                        },
+                        emphasis: {
+                            focus: 'adjacency',
+                            lineStyle: {
+                                width: 10
+                            }
+                        }
+                    }
+                ]
+            };
+
+            option && myChart.setOption(option);
+
+        }
+
+        handle['update'] = async function () {
+
+            handle['unit'] = utility.selected(handle['select_id'])
+
+            handle['data'] = await utility.load(`resource/relation/${handle.unit}合作.csv`)
+
+            handle['data'] = await process()
+
+            await draw()
+        }
+
+        d3.select(`#${handle['select_id']}`)
+            .on('change', async function () {
+                await handle['update']()
+            })
+
+        return handle
+    }
+
+    run()
+
+    //运行程序的核心函数
+    async function run() {
+        //chart 1
+        handle = await graph()
+        await handle['update']()
+    }
+</script>
+
+</html>

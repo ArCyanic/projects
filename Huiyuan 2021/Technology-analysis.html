@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Hello, world!</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- Material Kit CSS -->
+    <link href="assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <!-- libs -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- newly added -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <script src="resource/vendors/d3.min.js"></script>
+    <script src="resource/vendors/echarts.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="wrapper ">
+        <div class="sidebar" data-color="purple" data-background-color="white">
+            <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+            <div class="logo">
+                <a href="#" class="simple-text logo-mini">
+                    专利地图
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="./Tendency-analysis.html">
+                            <!-- <i class="material-icons">dashboard</i> -->
+                            <p>趋势分析</p>
+                        </a>
+                    </li>
+                    <!-- your sidebar here -->
+                    <li class="nav-item active">
+                        <a class="nav-link " href="./Technology-analysis.html">
+                            <!-- <i class="material-icons">library_books</i> -->
+                            <p>技术分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Patentee-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>专利权人分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Territory-analysis.html">
+                            <!-- <i class="material-icons">bubble_chart</i> -->
+                            <p>地域分析</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Partnership-analysis.html">
+                            <!-- <i class="material-icons">notifications</i> -->
+                            <p>合作关系分析</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- your content here -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">主IPC分析图</h4>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="barChart_IPCPart" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">专利技术构成分析图</h4>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="sunburst_IPC" style="height: 550px;"></div>
+                                    <p class="card-category">
+                                        <span class="text-success"><i class="fa fa-asterisk"></i> Analysis </span>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-chart">
+                                <div class="card-header card-header-success">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4 class="card-title">重要专利引用族谱</h4>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table" id="table_patents">
+
+                                        </table>
+                                        <p class="card-category">
+                                            <span class="text-success"><i class="fa fa-asterisk"></i>
+                                                注：纵轴为专利被引TOP20的专利权人，横轴为其引用专利权人TOP12。 </span>
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var handle
+    //每一次用于绘图的数据都放在data中, 用列表因为有时绘图需要有序
+    var data = []
+
+    //文件路径
+    var path = ''
+
+    //功能性函数集合
+    var utility = {
+        //load data from specific path
+        'load': async function (path) {
+            var temp = []
+            await d3.csv(path, d => {
+                temp.push(d)
+            })
+            return temp
+        },
+
+        'selected': function (id) {
+            var select = document.getElementById(`${id}`)
+            var index = select.selectedIndex
+            var value = select.options[index].innerText
+            return value
+        },
+
+        'range': function (start, end) {
+            var result = []
+            for (var i = start; i < end; i++) {
+                result.push(i)
+            }
+            return result
+        }
+    }
+
+    //
+    var barChart_IPCPart = async function () {
+        var handle = {}
+
+        handle['preprocess'] = async function () {
+            data = data.map(d => d['主IPC分类号'].slice(0, 1))
+            handle.sections = { 'A': '人类生活必须', 'B': '作业；运输', 'C': '化学；冶金', 'D': '纺织；造纸', 'E': '固定建筑物', 'F': '机械工程；照明；加热；武器；爆破', 'G': '物理', 'H': '电学' }
+
+            var counts = {}
+            Array.from(new Set(data)).map(d => {
+                counts[d] = 0
+            })
+            data.map(d => {
+                counts[d]++
+            })
+            data = {}
+            //KEY!
+            //sort不放参数时会按照字母顺序排序
+            Object.keys(counts).sort().map(d => {
+                data[handle.sections[d]] = counts[d]
+            })
+            return data
+        }
+
+        handle['draw'] = async function () {
+            var chartDom = document.getElementById('barChart_IPCPart');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: Object.keys(data),
+                    axisLabel: { interval: 0, rotate: 30 },
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '专利数（件）'
+                },
+                series: [{
+                    data: Object.values(data),
+                    type: 'bar'
+                }]
+            };
+
+            option && myChart.setOption(option);
+        }
+
+        handle['update'] = async function () {
+            //load
+            data = await utility['load']('resource/国内量子发展状况-过滤版.csv')
+
+            data = await handle['preprocess']()
+
+            await handle['draw']()
+
+        }
+
+        return handle
+    }
+
+    var sunburst_IPC = async function () {
+        var handle = {}
+
+        async function preprocess() {
+            return handle['data'].map(d => d['主IPC分类号'])
+        }
+
+        async function process() {
+            //init
+            var ends = [1, 3, 4]
+
+            var level = ends.map((d, i) => {
+                var temp = {}
+                handle['data'].map(d2 => {
+                    temp[d2.slice(0, d)] = {
+                        name: d2.slice(0, d),
+                        value: 0,
+                        children: []
+                    }
+                })
+                //NOTE: 注意要加return， 否则外部变量就会变成一个空值
+                return temp
+            })
+
+            //statistic
+            handle['data'].map(d => {
+                for (var i = 0; i < level.length; i++) {
+                    level[i][d.slice(0, ends[i])]['value']++
+                }
+            })
+
+            //孩子找妈妈
+            for (var i = ends.length - 1; i >= 1; i--) {
+                Object.keys(level[i]).map(d => {
+                    var test = d.slice(0, ends[i - 1])
+                    if (level[i - 1][d.slice(0, ends[i - 1])]['children'].map(d3 => d3['name']).indexOf(d) === -1) {
+                        level[i - 1][d.slice(0, ends[i - 1])]['children'].push(level[i][d])
+                    }
+                })
+            }
+
+            //只保留最上层的数据
+            level = level[0]
+
+            //删除键，简化数据
+            level = Object.values(level)
+
+            return level
+        }
+
+        async function draw() {
+
+            var chartDom = document.getElementById('sunburst_IPC');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            var legends = {
+                'H': '电学',
+                'H01': '基本电气元件',
+                'H04': '电通信技术',
+                'H01L': '半导体器件等',
+                'H04L': '数字信息的传输',
+                'C': '化学；冶金',
+                'C09': '染料；涂料；抛光剂等',
+                'C09K': '不包含在其他类目中的各种应用材料和材料的各种应用',
+                'G': '物理',
+                'G01': '测量；测试',
+                'G02': '光学',
+                'G01N': '借助于测定材料的化学或物理性质来测试或分析材料'
+
+            }
+
+            console.log(handle['data'])
+
+            option = {
+                tooltip: {
+                    formatter: function (params) {
+                        return `Name : ${params['name']}<br />Value : ${params.data.value}<br />Proportion : (${(params.data.value / params.treePathInfo[0].value).toFixed(2) * 100}%)`
+                    }
+                },
+                legend: {
+                    formatter: function (params) {
+                        console.log('params', params)
+                    }
+                    // data: Object.keys(legends)
+                },
+
+                series: {
+                    type: 'sunburst',
+                    showInLegend: true,
+                    data: handle['data'],
+                    radius: [60, '90%'],
+                    itemStyle: {
+                        borderRadius: 7,
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: true,
+                        minAngle: 20,
+                        formatter: function (param) {
+                            return param.data[3];
+                        },
+                        // position: 'right',
+                        // rotate: false
+                    },
+
+                }
+            };
+
+            option && myChart.setOption(option);
+        }
+
+        handle['update'] = async function () {
+            handle['data'] = await utility.load('resource/国内量子发展状况-过滤版.csv')
+
+            handle['data'] = await preprocess()
+
+            handle['data'] = await process()
+
+            await draw()
+        }
+        return handle
+    }
+
+    var table_patents = async function () {
+        var handle = {}
+
+        async function process() {
+            var keys = Object.keys(handle.data[0])
+            var values = handle.data.map(d => Object.values(d))
+            return {
+                keys: keys,
+                values: values
+            }
+        }
+
+        async function draw() {
+            let table = document.getElementById('table_patents')
+            // let table_head = document.createElement('thead');
+            // let table_body = document.createElement('tbody');
+
+            let table_head = document.createElement('tr')
+            handle.data.keys.forEach(key => {
+                let table_data = document.createElement('td')
+                table_data.innerText = key
+                table_head.append(table_data)
+            });
+            table.append(table_head)
+
+            handle.data.values.forEach(row => {
+                let table_row = document.createElement('tr')
+                row.forEach(value => {
+                    let table_data = document.createElement('td')
+                    table_data.innerText = value
+                    table_row.append(table_data)
+                })
+                table.append(table_row)
+            })
+
+        }
+
+        handle['update'] = async function () {
+            handle.data = await utility.load('resource/重要专利被引族谱表TOP20.csv')
+
+            handle.data = await process()
+
+            await draw()
+        }
+
+
+        console.log(data)
+
+
+        return handle
+    }
+    run()
+
+    async function run() {
+        //chart 1
+        handle = await barChart_IPCPart()
+        await handle['update']()
+
+        handle = await sunburst_IPC()
+        await handle['update']()
+
+        handle = await table_patents()
+        await handle['update']()
+    }
+</script>
+
+</html>
