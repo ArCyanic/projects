@@ -1,0 +1,17 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Mixture-of-experts (MoE) models activate a small subset of expert feed-forward networks (FFNs) per token~\cite{switch2022}, yet inference requires large memory capacity to store all experts' weights and high bandwidth to read those of selected experts. Three-dimensional compute-in-memory (3D CIM) combines stacked weight-storage layers with in-situ matrix--vector multiplication, allowing all expert weights to be stored on-chip when capacity suffices~\cite{buchel2025,jang2025,lee2022}. Across a mesh of compute nodes, resident weights shift bottlenecks from off-chip weight reads to per-node computation and inter-node activation transfers.
+
+Each node executes one resident operator at a time, so co-locating simultaneously activated experts on one node serializes their computation, whereas placing them on different nodes trades parallel execution against activation distribution and aggregation transfers. Within finite 3D node capacity, offline deployment shapes these paths through expert spatial layout across nodes and weight replication, which stores additional resident instances (replicas) of selected experts' weights on other nodes.
+
+The same resident deployment must serve both decode and prefill under dynamic routing. Layouts or replica allocations that shorten decode latency can concentrate prefill work on heavily used nodes, whereas balancing aggregate prefill load can lengthen decode execution paths. Because all layers share each node's 3D storage capacity, the mapper must weigh spatial layout and additional replicas together to balance decode latency against prefill throughput.
+
+Existing CIM compilation and simulation frameworks adopt different hardware representations and execution models across target arrays~\cite{pimcomp2023,cimmlc2024,cimflow2025,buchel2025,sharma2025}. Compilers for 2D arrays schedule static operator graphs, whereas 3D MoE studies evaluate single-replica deployments on specific memory stacks. Comparing candidate layouts and replica allocations across 3D CIM architectures requires a common hardware model that supplies 3D storage footprints and operator execution times to token-routed execution simulation.
+
+We present a deployment and execution framework for MoE inference on 3D CIM systems. It models dense and expert FFN chains. Using a unified hardware model, the framework coordinates offline mapping and online scheduling to optimize one shared deployment and evaluate decode and prefill latencies alongside node and link loads. Our contributions are:
+\begin{itemize}
+  \item We establish a unified hardware abstraction and cost model for 3D CIM that captures 3D weight storage footprints and operator execution times across computation and readout mechanisms.
+  \item We propose a deployment and execution framework for MoE inference on 3D CIM that connects 3D capacity-constrained deployment, token-routed cross-layer execution simulation, and bottleneck profiling.
+  \item We design weight mapping and dataflow scheduling algorithms that alternate replica allocation and spatial layout search offline, while jointly planning replica binding and result aggregation online for decode and prefill.
+\end{itemize}

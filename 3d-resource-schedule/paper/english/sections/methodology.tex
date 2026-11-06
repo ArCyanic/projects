@@ -1,0 +1,67 @@
+\section{Inference Framework}
+\label{sec:framework}
+
+
+\subsection{Overview}
+
+Spatial compilation supplies Weight-Cubes alongside operator execution and per-hop transfer times (Fig.~\ref{fig:framework}(a)) to the mapper, which uses historical expert traces to construct a shared deployment (Fig.~\ref{fig:framework}(b)). The runtime scheduler binds active experts and selects roots (Fig.~\ref{fig:framework}(c)); the simulator and profiler return latency feedback (Fig.~\ref{fig:framework}(d)).
+
+\subsection{Framework Design}
+
+\subsubsection{Weight Deployment}
+A replica is a resident instance of an expert's weights, including the initial instance. The compiler co-locates its gate/up and down Weight-Cubes on one node. A single packing routine verifies capacity and assigns block coordinates under Section~\ref{sec:hardware}'s constraints. Deployment $X$ exposes expert $e$'s resident-node set $\mathcal{R}_e$.
+
+\subsubsection{Inference Execution}
+Binding $a$ maps each active expert $e$ to $a_e\in\mathcal{R}_e$, forming $\mathcal{N}_a=\{a_e\}$. For source $s$ and root $r$, let $h$ count shortest-path hops and $t_{\mathrm{in}},t_{\mathrm{out}}$ denote per-hop transfer times from~\eqref{eq:hop-time}. The planner scores the longest uncontended branch:
+\begin{equation}
+  \begin{aligned}
+    L(a,r)=\max_{n\in\mathcal{N}_a}\Big[&h(s,n)t_{\mathrm{in}}
+      +\sum_{e:a_e=n}T_e\\
+      &+h(n,r)t_{\mathrm{out}}\Big].
+  \end{aligned}
+  \label{eq:decode-plan}
+\end{equation}
+While $L(a,r)$ scores uncontended branches, the simulator accounts for link contention. Equal-size expert input/output vectors and $T_e>0$ make multicast reach a shared directed link before reduction traffic; the simulator adds multicast link-release times to reduction dependencies, waits for local and child results, and propagates roots and completion times across layers to obtain $J_D$. For prefill, node/link calendars advance concurrent tokens; computation priority is token index, operator stage (down before gate/up), then ready time, yielding batch makespan $J_P$.
+
+\subsubsection{Performance Profiler}
+The profiler sums timing contributions across all modeled FFN layers:
+\begin{equation}
+  J_D=T_{\mathrm{expert}}+T_{\mathrm{node}}+T_{\mathrm{mesh}}+T_{\mathrm{wait}}.
+  \label{eq:decode-parts}
+\end{equation}
+$T_{\mathrm{expert}}$ combines dense FFN time with one $T_e$ per MoE critical branch; remaining co-resident compute contributes to $T_{\mathrm{node}}$ (Serial in figures), and uncontended transfer to $T_{\mathrm{mesh}}$. Residual $T_{\mathrm{wait}}$ captures delay from link availability and reduction dependencies. For prefill, $W_C,W_L$ are maximum accumulated node-compute and directed-link times, and $L_{\mathrm{dep}}$ the longest per-token compute chain:
+\begin{equation}
+  B_{\mathrm{exec}}=\max(W_C,W_L,L_{\mathrm{dep}})\leq J_P.
+  \label{eq:prefill-bound}
+\end{equation}
+The profiler reports the bound gap $J_P-B_{\mathrm{exec}}$ alongside node and link utilization.
+
+\subsection{Algorithms}
+
+\subsubsection{Weight Mapping}
+Two single-replica initializers start independent budget tracks. The compute-balanced initializer counts fixed dense work, then places experts by descending activation frequency on least-loaded feasible nodes. The state-aware hypergraph initializer labels expert vertices with resident nodes; each sampled training trace $q$ supplies one co-activation hyperedge per MoE layer.
+
+A layer's root becomes the next input source, coupling placement across layers. For trace $q$ entering from $s$, let $C_\ell(q,s;X)=T_{\mathrm{node},\ell}+T_{\mathrm{mesh},\ell}$ denote critical-branch serialization and transfer time, and $r_\ell(q,s;X)$ the decode planner's chosen root. The mapper scores placement with the remaining sum of $C_\ell$ terms, $V_\ell(q,s;X)$:
+\begin{equation}
+  \begin{aligned}
+    V_\ell(q,s;X)&=C_\ell(q,s;X)\\
+      &\quad+V_{\ell+1}\big(q,r_\ell(q,s;X);X\big),
+  \end{aligned}
+  \label{eq:suffix}
+\end{equation}
+with zero suffix after the last layer. Before each forward Fiduccia--Mattheyses (FM) sweep~\cite{fm1982}, the mapper builds the suffix table backward for every sampled trace and every mesh source node. Candidate moves update affected $C_\ell$ terms and roots, then query cached $V_{\ell+1}$ at the new roots. Capacity-constrained FM passes retain the best move prefix and propagate the resulting roots as next-layer input sources.
+
+Each track continues from its previous-budget layout, first greedily adding replicas at feasible nodes to reduce projected peak node compute work, splitting each expert's expected work equally among replicas. At fixed replica counts and node occupancy, same-layer swap search then minimizes mean decode latency while keeping prefill batch times within 2\% of that track's replica-addition candidate at every evaluated batch size.
+
+Validation compares the two tracks' candidates at each budget. At each prefill batch size, the faster candidate sets the reference. The mapper selects minimum mean decode latency within 2\% maximum relative prefill overhead; if neither qualifies, it uses the smallest feasible maximum overhead.
+
+\subsubsection{Dataflow Scheduling}
+For decode, the scheduler jointly minimizes~\eqref{eq:decode-plan} for the current layer over resident-node bindings and all mesh nodes as roots. Lower bounds on $L$ for partial bindings prune the search.
+
+The prefill scheduler spreads concurrent work across replicas. Each window starts with cumulative assigned compute time $W_n=0$; the scheduler binds experts sequentially and immediately updates the selected node's work~\cite{hdmoe2025}:
+\begin{equation}
+  a_e=\arg\min_{n\in\mathcal{R}_e}(W_n+T_e),\qquad
+  W_{a_e}\leftarrow W_{a_e}+T_e.
+  \label{eq:prefill-bind}
+\end{equation}
+The next assignment uses the updated $W_n$. Among equal-work candidates, the scheduler prefers minimum input transfer time, then node index. After binding, it minimizes reduction-tree edge count, with maximum return hop count, total return hop count, and node index as successive tie-breakers.

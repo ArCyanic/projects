@@ -1,0 +1,45 @@
+\begin{table}[t]
+  \caption{Unit-Cube and Macro Geometry of 3D-CIM Designs}
+  \label{tab:hardware-prototypes}
+  \centering
+  \begingroup
+  \fontsize{9}{10.8}\selectfont
+  \setlength{\tabcolsep}{1.5pt}
+  \setlength{\parindent}{0pt}
+  \renewcommand{\arraystretch}{1.12}
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccc@{}}
+    \hline
+    \textbf{Design} &
+    \textbf{Readout} &
+    \textbf{Unit-Cube} &
+    \textbf{Native macro} \\
+    \hline
+    NAND PIM~\cite{jang2025} &
+    Planar &
+    $128\times512\times128$ &
+    $16384\times65536\times128$ \\[2pt]
+    3D AIMC~\cite{buchel2025} &
+    Planar &
+    $512\times512\times256$ &
+    $8192\times8192\times256$ \\[2pt]
+    3D-FPIM~\cite{lee2022} &
+    Vertical &
+    $128\times128\times64$ &
+    $512\times768\times64$ \\[2pt]
+    Sharma~\cite{sharma2025} &
+    Planar &
+    $128\times128\times16$ &
+    $12800\times13312\times16$ \\[2pt]
+    NASiC~\cite{nasic2026} &
+    Planar &
+    $128\times w_u\times D_u$ &
+    $1024\times131072\times128$ \\
+    \hline
+  \end{tabular*}
+  \par\smallskip
+  \raggedright
+  \footnotesize
+  Rows $\times$ columns $\times$ layers; logical node sizes are configured separately. Sharma: area-model geometry. NASiC: 128-input case, encoding-dependent $w_u$, and $D_u=128-D_{\mathrm{CAM}}$ after CAM reservation; plane dimensions follow SLs $\times$ BLs $\times$ WLs.
+  \par
+  \endgroup
+\end{table}

@@ -1,0 +1,10 @@
+iree_register_external_hal_driver(
+  NAME
+    cim
+  SOURCE_DIR
+    "${CMAKE_CURRENT_LIST_DIR}/runtime"
+  DRIVER_TARGET
+    cim_runtime::driver
+  REGISTER_FN
+    iree_hal_cim_driver_module_register
+)

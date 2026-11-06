@@ -1,0 +1,290 @@
+//===--------------------------------------------------------------------------------------------------------------===//
+// @residual_mlp : version 0
+//===--------------------------------------------------------------------------------------------------------------===//
+
+Requirements: 0000000C
+
+Required Types:
+  [  0] i32
+  [  1] i64
+  [  2] !hal.allocator
+  [  3] !hal.buffer
+  [  4] !hal.buffer_view
+  [  5] !hal.command_buffer
+  [  6] !hal.device
+  [  7] !hal.executable
+  [  8] !hal.fence
+  [  9] !vm.buffer
+
+Module Dependencies:
+  hal, version >= 6, required
+
+Imported Functions:
+  [  0] hal.buffer.assert(!vm.ref<?>, !vm.ref<?>, !vm.ref<?>, i64, i32, i32) -> ()
+  [  1] hal.buffer_view.create(!vm.ref<?>, i64, i64, i32, i32, tuple<i64>...) -> (!vm.ref<?>)
+  [  2] hal.buffer_view.assert(!vm.ref<?>, !vm.ref<?>, i32, i32, tuple<i64>...) -> ()
+  [  3] hal.buffer_view.buffer(!vm.ref<?>) -> (!vm.ref<?>)
+  [  4] hal.command_buffer.create(!vm.ref<?>, i32, i32, i64, i32) -> (!vm.ref<?>)
+  [  5] hal.command_buffer.finalize(!vm.ref<?>) -> ()
+  [  6] hal.command_buffer.execution_barrier(!vm.ref<?>, i32, i32, i64) -> ()
+  [  7] hal.command_buffer.dispatch(!vm.ref<?>, !vm.ref<?>, i32, i32, i32, i32, i64, tuple<i32>..., tuple<i32, i32, !vm.ref<?>, i64, i64>...) -> ()
+  [  8] hal.device.allocator(!vm.ref<?>) -> (!vm.ref<?>)
+  [  9] hal.device.query.i64(!vm.ref<?>, !vm.ref<?>, !vm.ref<?>) -> (i32, i64)
+  [ 10] hal.device.queue.alloca(!vm.ref<?>, i64, !vm.ref<?>, !vm.ref<?>, i64, i32, i32, i64, i64) -> (!vm.ref<?>)
+  [ 11] hal.device.queue.dealloca(!vm.ref<?>, i64, !vm.ref<?>, !vm.ref<?>, !vm.ref<?>, i64) -> ()
+  [ 12] hal.device.queue.execute.indirect(!vm.ref<?>, i64, !vm.ref<?>, !vm.ref<?>, !vm.ref<?>, i64, tuple<!vm.ref<?>, i64, i64>...) -> ()
+  [ 13] hal.devices.count() -> (i32)
+  [ 14] hal.devices.get(i32) -> (!vm.ref<?>)
+  [ 15] hal.executable.create(!vm.ref<?>, i64, !vm.ref<?>, !vm.ref<?>, !vm.ref<?>) -> (!vm.ref<?>)
+  [ 16] hal.fence.create(!vm.ref<?>, i64) -> (!vm.ref<?>)
+  [ 17] hal.fence.join(i64, tuple<!vm.ref<?>>...) -> (!vm.ref<?>)
+  [ 18] hal.fence.await(i32, i64, tuple<!vm.ref<?>>...) -> (i32)
+
+Exported Functions:
+  [  0] main(!vm.ref<?>, !vm.ref<?>, !vm.ref<?>, !vm.ref<?>, !vm.ref<?>, !vm.ref<?>) -> (!vm.ref<?>, !vm.ref<?>)
+        iree.abi.declaration: sync func @main(%input0: tensor<16x32xf32>, %input1: tensor<32x64xf32>, %input2: tensor<64xf32>, %input3: tensor<64x32xf32>, %input4: tensor<32xf32>, %input5: tensor<16x32xf32>) -> (%output0: tensor<16x32xf32>, %output1: tensor<16xf32>)
+  [  1] __init() -> ()
+
+//===--------------------------------------------------------------------------------------------------------------===//
+// Sections
+//===--------------------------------------------------------------------------------------------------------------===//
+
+Module State:
+  0 bytes, 5 refs, ~80 bytes total
+
+FlatBuffer: 7228 bytes
+  Bytecode: 3256 bytes
+  .rodata[  0] embedded       13 bytes `hal.device.id`
+  .rodata[  1] embedded        5 bytes `metal`
+  .rodata[  2] embedded       21 bytes `hal.executable.format`
+  .rodata[  3] embedded       12 bytes `metal-msl-fb`
+  .rodata[  4] external     2092 bytes (offset 96 / 60h to 88Ch)
+  .rodata[  5] external     2100 bytes (offset 2288 / 8F0h to 1124h)
+  .rodata[  6] external     1156 bytes (offset 4480 / 1180h to 1604h)
+  .rodata[  7] embedded        6 bytes `input0`
+  .rodata[  8] embedded        6 bytes `tensor`
+  .rodata[  9] embedded        6 bytes `input1`
+  .rodata[ 10] embedded        6 bytes `input2`
+  .rodata[ 11] embedded        6 bytes `input3`
+  .rodata[ 12] embedded        6 bytes `input4`
+  .rodata[ 13] embedded        6 bytes `input5`
+
+External .rodata: ~5348 bytes
+
+//===--------------------------------------------------------------------------------------------------------------===//
+// Bytecode : version 0
+//===--------------------------------------------------------------------------------------------------------------===//
+
+  # | Offset   |   Length | Blocks | i32 # | ref # | Requirements | Aliases
+----+----------+----------+--------+-------+-------+--------------+-----------------------------------------------------
+  0 | 00000000 |      544 |      1 |    28 |     6 | 00000008     | 
+  1 | 00000220 |     1080 |      4 |    28 |    13 | 0000000C     | main
+  2 | 00000658 |     1632 |     14 |    22 |     7 | 00000008     | __init
+
+//===--------------------------------------------------------------------------------------------------------------===//
+// Debug Information
+//===--------------------------------------------------------------------------------------------------------------===//
+// NOTE: debug databases are large and should be stripped in deployed artifacts.
+
+Locations: 14
+
+
+//===----------------------------------------------------------------------===//
+// Disassembly: residual_mlp.__init (#0)
+//===----------------------------------------------------------------------===//
+[00000000]    <block>
+[00000001]    %i0 = vm.const.i32 16  // 0x00000010
+[00000008]    %i1 = vm.const.i32 6  // 0x00000006
+[0000000F]    %i2 = vm.const.i32 5  // 0x00000005
+[00000016]    %i3 = vm.const.i32 4  // 0x00000004
+[0000001D]    %i4 = vm.const.i32 13  // 0x0000000D
+[00000024]    %i5 = vm.const.i32 28  // 0x0000001C
+[0000002B]    %i6 = vm.const.i32 7  // 0x00000007
+[00000032]    %i7 = vm.const.i32 2  // 0x00000002
+[00000039]    %r0 = vm.const.ref.zero
+[0000003C]    %i8 = vm.const.i32 1  // 0x00000001
+[00000043]    %i9 = vm.const.i32 8  // 0x00000008
+[0000004A]    %i10 = vm.const.i32 3  // 0x00000003
+[00000051]    %i11 = vm.const.i32.zero
+[00000054]    %i12:13 = vm.const.i64 2112  // 0x0000000000000840
+[0000005F]    %i14:15 = vm.const.i64 128  // 0x0000000000000080
+[0000006A]    %i16:17 = vm.const.i64 4096  // 0x0000000000001000
+[00000075]    %i18:19 = vm.const.i64 256  // 0x0000000000000100
+[00000080]    %i20:21 = vm.const.i64 8192  // 0x0000000000002000
+[0000008B]    %i22:23 = vm.const.i64 2048  // 0x0000000000000800
+[00000096]    %i24:25 = vm.const.i64.zero
+[00000099]    %i26:27 = vm.const.i64 -1  // 0xFFFFFFFFFFFFFFFF
+[000000A4]    %r1 = vm.global.load.ref .refs[0] : !hal.device
+[000000AF]    %r2 = vm.global.load.ref .refs[1] : !hal.executable
+[000000BA]    %r3 = vm.global.load.ref .refs[2] : !hal.executable
+[000000C5]    %r4 = vm.global.load.ref .refs[3] : !hal.executable
+[000000D0]    %r5 = vm.call @hal.command_buffer.create(%R1, %i11, %i10, %i26, %i9)
+[000000E6]    vm.call.variadic @hal.command_buffer.dispatch(%r5, %R2, %i11, %i8, %i8, %i8, %i24, %i11, %i11, %r0, %i24, %i22, %i11, %i8, %r0, %i24, %i20, %i11, %i7, %r0, %i24, %i18, %i11, %i6, %r0, %i24, %i16)
+[0000013A]    vm.call @hal.command_buffer.execution_barrier(%r5, %i5, %i4, %i24)
+[0000014C]    vm.call.variadic @hal.command_buffer.dispatch(%r5, %R3, %i11, %i8, %i8, %i8, %i24, %i11, %i6, %r0, %i24, %i16, %i11, %i10, %r0, %i24, %i20, %i11, %i3, %r0, %i24, %i14, %i11, %i2, %r0, %i24, %i22, %i11, %i1, %r0, %i24, %i12)
+[000001AA]    vm.call @hal.command_buffer.execution_barrier(%r5, %i5, %i4, %i24)
+[000001BC]    vm.call.variadic @hal.command_buffer.dispatch(%r5, %R4, %i11, %i0, %i8, %i8, %i24, %i11, %i1, %r0, %i24, %i12, %i11, %i1, %R0, %i24, %i12)
+[000001FC]    vm.call @hal.command_buffer.execution_barrier(%r5, %i5, %i4, %i24)
+[0000020E]    vm.call @hal.command_buffer.finalize(%r5)
+[0000021A]    vm.return %R5
+
+//===----------------------------------------------------------------------===//
+// Disassembly: residual_mlp.main (#1)
+//===----------------------------------------------------------------------===//
+[00000000]    <block>
+[00000001]    %i0 = vm.const.i32 16  // 0x00000010
+[00000008]    %i1 = vm.const.i32 1  // 0x00000001
+[0000000F]    %i2 = vm.const.i32 553648160  // 0x21000020
+[00000016]    %i3 = vm.const.i32 3075  // 0x00000C03
+[0000001D]    %i4 = vm.const.i32 48  // 0x00000030
+[00000024]    %i6:7 = vm.const.i64 16  // 0x0000000000000010
+[0000002F]    %i8:9 = vm.const.i64 32  // 0x0000000000000020
+[0000003A]    %i10:11 = vm.const.i64 64  // 0x0000000000000040
+[00000045]    %i12:13 = vm.const.i64 2048  // 0x0000000000000800
+[00000050]    %i14:15 = vm.const.i64 8192  // 0x0000000000002000
+[0000005B]    %i16:17 = vm.const.i64 256  // 0x0000000000000100
+[00000066]    %i18:19 = vm.const.i64 128  // 0x0000000000000080
+[00000071]    %i20:21 = vm.const.i64 4096  // 0x0000000000001000
+[0000007C]    %i22:23 = vm.const.i64 2112  // 0x0000000000000840
+[00000087]    %i24:25 = vm.const.i64.zero
+[0000008A]    %i26:27 = vm.const.i64 -1  // 0xFFFFFFFFFFFFFFFF
+[00000095]    %r6 = vm.const.ref.zero
+[00000098]    %i5 = vm.const.i32 -1  // 0xFFFFFFFF
+[0000009F]    %r7 = vm.global.load.ref .refs[0] : !hal.device
+[000000AA]    %r8 = vm.global.load.ref .refs[4] : !hal.command_buffer
+[000000B5]    %r9 = vm.const.ref.rodata 7  // 0x0000000101370e7c 6b
+[000000BC]    vm.call.variadic @hal.buffer_view.assert(%r0, %R9, %i2, %i1, %i6, %i8)
+[000000DE]    %r9 = vm.call @hal.buffer_view.buffer(%R0)
+[000000EC]    %r0 = vm.call @hal.device.allocator(%r7)
+[000000FA]    %r10 = vm.const.ref.rodata 8  // 0x0000000101370e90 6b
+[00000101]    vm.call @hal.buffer.assert(%r9, %r10, %r0, %i12, %i0, %i3)
+[00000116]    %r11 = vm.const.ref.rodata 9  // 0x0000000101370ea4 6b
+[0000011D]    vm.call.variadic @hal.buffer_view.assert(%r1, %R11, %i2, %i1, %i8, %i10)
+[0000013E]    %r11 = vm.call @hal.buffer_view.buffer(%R1)
+[0000014C]    vm.call @hal.buffer.assert(%r11, %r10, %r0, %i14, %i0, %i3)
+[00000162]    %r1 = vm.const.ref.rodata 10  // 0x0000000101370eb8 6b
+[00000169]    vm.call.variadic @hal.buffer_view.assert(%r2, %R1, %i2, %i1, %i10)
+[00000188]    %r1 = vm.call @hal.buffer_view.buffer(%R2)
+[00000196]    vm.call @hal.buffer.assert(%r1, %r10, %r0, %i16, %i0, %i3)
+[000001AC]    %r2 = vm.const.ref.rodata 11  // 0x0000000101370ecc 6b
+[000001B3]    vm.call.variadic @hal.buffer_view.assert(%r3, %R2, %i2, %i1, %i10, %i8)
+[000001D4]    %r2 = vm.call @hal.buffer_view.buffer(%R3)
+[000001E2]    vm.call @hal.buffer.assert(%r2, %r10, %r0, %i14, %i0, %i3)
+[000001F8]    %r3 = vm.const.ref.rodata 12  // 0x0000000101370ee0 6b
+[000001FF]    vm.call.variadic @hal.buffer_view.assert(%r4, %R3, %i2, %i1, %i8)
+[0000021E]    %r3 = vm.call @hal.buffer_view.buffer(%R4)
+[0000022C]    vm.call @hal.buffer.assert(%r3, %r10, %r0, %i18, %i0, %i3)
+[00000242]    %r4 = vm.const.ref.rodata 13  // 0x0000000101370ef4 6b
+[00000249]    vm.call.variadic @hal.buffer_view.assert(%r5, %R4, %i2, %i1, %i6, %i8)
+[0000026A]    %r4 = vm.call @hal.buffer_view.buffer(%R5)
+[00000278]    vm.call @hal.buffer.assert(%r4, %R10, %R0, %i12, %i0, %i3)
+[0000028E]    %r0 = vm.call @hal.fence.create(%r7, %i24)
+[0000029E]    %r5 = vm.call @hal.device.queue.alloca(%r7, %i26, %r6, %r0, %i24, %i4, %i3, %i22, %i24)
+[000002BC]    %r10 = vm.call @hal.fence.create(%r7, %i24)
+[000002CC]    %r12 = vm.call @hal.device.queue.alloca(%r7, %i26, %R6, %r10, %i24, %i4, %i3, %i20, %i24)
+[000002EA]    %r10 = vm.call.variadic @hal.fence.join(%i24, %R0, %R10)
+[00000302]    %r0 = vm.call @hal.fence.create(%r7, %i24)
+[00000312]    vm.call.variadic @hal.device.queue.execute.indirect(%r7, %i26, %R10, %r0, %R8, %i24, %R9, %i24, %i12, %R11, %i24, %i14, %R1, %i24, %i16, %R2, %i24, %i14, %R3, %i24, %i18, %R4, %i24, %i12, %r5, %i24, %i22, %r12, %i24, %i20)
+[00000368]    %r1 = vm.call @hal.fence.create(%r7, %i24)
+[00000378]    vm.call @hal.device.queue.dealloca(%R7, %i26, %R0, %r1, %R12, %i24)
+[0000038E]    vm.call.variadic.yieldable @hal.fence.await(%i5, %i24, %R1) -> ^000003AC(%i0)
+[000003AC]    <block>
+[000003AD]    vm.cond_br %i0, ^00000412(), ^000003BC()
+[000003BC]    <block>
+[000003BD]    %r0 = vm.call.variadic @hal.buffer_view.create(%r5, %i24, %i12, %i2, %i1, %i6, %i8)
+[000003E4]    %r1 = vm.call.variadic @hal.buffer_view.create(%R5, %i12, %i10, %i2, %i1, %i6)
+[0000040A]    vm.return %R0, %R1
+[00000412]    <block>
+[00000413]    vm.discard.refs %r5
+[00000418]    vm.fail %i0, "failed to wait on timepoint"
+
+//===----------------------------------------------------------------------===//
+// Disassembly: residual_mlp.__init (#2)
+//===----------------------------------------------------------------------===//
+[00000000]    <block>
+[00000001]    %i0 = vm.const.i32 1  // 0x00000001
+[00000008]    %r0 = vm.const.ref.zero
+[0000000B]    %i1 = vm.const.i32 14  // 0x0000000E
+[00000012]    %i2:3 = vm.const.i64 -1  // 0xFFFFFFFFFFFFFFFF
+[0000001D]    %i4 = vm.const.i32 18  // 0x00000012
+[00000024]    %i5 = vm.const.i32.zero
+[00000027]    %i6:7 = vm.const.i64.zero
+[0000002A]    %i8:9 = vm.const.i64 1  // 0x0000000000000001
+[00000035]    %r1 = vm.const.ref.zero
+[00000038]    %i10 = vm.call @hal.devices.count()
+[00000044]    %i12:13 = vm.ext.i32.i64.s %i10
+[00000049]    vm.br ^00000064(%r1->%r2, %i6->%i10, %i7->%i11, %i6->%i14, %i7->%i15)
+[00000064]    <block>
+[00000065]    %i16 = vm.cmp.nz.ref %r2
+[0000006A]    %i16 = vm.xor.i32 %i16, %i0
+[00000071]    %i17 = vm.cmp.lt.i64.s %i10:11, %i12:13
+[00000078]    %i17 = vm.and.i32 %i16, %i17
+[0000007F]    vm.cond_br %i17, ^0000008E(), ^0000016C()
+[0000008E]    <block>
+[0000008F]    vm.discard.refs %r2
+[00000094]    %i17 = vm.trunc.i64.i32 %i10:11
+[00000099]    %r3 = vm.call @hal.devices.get(%i17)
+[000000A6]    %r4 = vm.const.ref.rodata 0  // 0x0000000101370dcc 13b
+[000000AD]    %r5 = vm.const.ref.rodata 1  // 0x0000000101370de8 5b
+[000000B4]    %i17, %i18 = vm.call @hal.device.query.i64(%r3, %R4, %R5)
+[000000C8]    %i20 = vm.cmp.nz.i64 %i18:19
+[000000CD]    %i20 = vm.select.i32 %i17 ? %i20 : %i5
+[000000D6]    vm.cond_br %i20, ^000000EA(), ^00000126(%i5->%i17)
+[000000EA]    <block>
+[000000EB]    %r4 = vm.const.ref.rodata 2  // 0x0000000101370dfc 21b
+[000000F2]    %r5 = vm.const.ref.rodata 3  // 0x0000000101370e20 12b
+[000000F9]    %i17, %i18 = vm.call @hal.device.query.i64(%r3, %R4, %R5)
+[0000010C]    %i20 = vm.cmp.nz.i64 %i18:19
+[00000111]    %i20 = vm.select.i32 %i17 ? %i20 : %i5
+[0000011A]    vm.br ^00000126(%i20->%i17)
+[00000126]    <block>
+[00000127]    %i18 = vm.cmp.eq.i64 %i14:15, %i6:7
+[0000012E]    %i20:21 = vm.select.i64 %i17 ? %i8:9 : %i6:7
+[00000137]    %i20:21 = vm.add.i64 %i14:15, %i20:21
+[0000013E]    %i18 = vm.and.i32 %i17, %i18
+[00000145]    %r3 = vm.select.ref %i18 ? %R3 : %r1 -> !hal.device
+[00000152]    %i10:11 = vm.add.i64 %i10:11, %i8:9
+[00000159]    vm.br ^00000064(%R3->%r2, %i20->%i14, %i21->%i15)
+[0000016C]    <block>
+[0000016D]    vm.discard.refs %r1
+[00000172]    vm.cond_br %i16, ^00000182(), ^000003B9()
+[00000182]    <block>
+[00000183]    vm.discard.refs %r0, %r2
+[0000018A]    vm.fail %i4, "HAL device `__device_0` not found or unavailable: #hal.device.target<"metal", [#hal.executable.target<"metal-spirv", "metal-msl-fb", {iree_codegen.target_info = #iree_gpu.target<arch = "apple", features = "spirv:v1.3,cap:Shader", wgp = <compute = fp32|fp16|int64|int32|int16|int8, storage = b64|b32|b16|b8, subgroup = shuffle|arithmetic, dot = dp4xi8toi32, subgroup_size_choices = [32], max_workgroup_sizes = [1024, 1024, 1024], max_thread_count_per_workgroup = 1024, max_workgroup_memory_bytes = 32768, max_workgroup_counts = [65535, 65535, 65535]>>}>]>"
+[000003B9]    <block>
+[000003BA]    %r1 = vm.const.ref.rodata 2  // 0x0000000101370dfc 21b
+[000003C1]    %r3 = vm.const.ref.rodata 3  // 0x0000000101370e20 12b
+[000003C8]    %i0, %i8 = vm.call @hal.device.query.i64(%r2, %R1, %r3)
+[000003DC]    %i4 = vm.cmp.nz.i64 %i8:9
+[000003E1]    %i5 = vm.select.i32 %i0 ? %i4 : %i5
+[000003EA]    %i8:9 = vm.select.i64 %i5 ? %i6:7 : %i2:3
+[000003F3]    %i0 = vm.cmp.eq.i64 %i8:9, %i6:7
+[000003FA]    vm.global.store.ref %r2, .refs[0] : !hal.device
+[00000405]    vm.cond_br %i0, ^00000414(), ^00000442()
+[00000414]    <block>
+[00000415]    %r1 = vm.const.ref.rodata 4  // 0x0000000101371ce0 2092b
+[0000041C]    %r4 = vm.call @hal.executable.create(%r2, %i2, %r3, %R1, %r0)
+[00000432]    vm.cond_br %i0, ^000004C8(), ^000004F6()
+[00000442]    <block>
+[00000443]    vm.discard.refs %r0, %r2, %r3
+[0000044C]    vm.fail %i1, "HAL device `__device_0` does not support any variant of executable `main_dispatch_0`; available formats: [metal-msl-fb]"
+[000004C8]    <block>
+[000004C9]    %r1 = vm.const.ref.rodata 5  // 0x0000000101372570 2100b
+[000004D0]    %r5 = vm.call @hal.executable.create(%r2, %i2, %r3, %R1, %r0)
+[000004E6]    vm.cond_br %i0, ^0000057E(), ^000005D6()
+[000004F6]    <block>
+[000004F7]    vm.discard.refs %r0, %r2, %r3, %r4
+[00000502]    vm.fail %i1, "HAL device `__device_0` does not support any variant of executable `main_dispatch_1`; available formats: [metal-msl-fb]"
+[0000057E]    <block>
+[0000057F]    %r1 = vm.const.ref.rodata 6  // 0x0000000101372e00 1156b
+[00000586]    %r6 = vm.call @hal.executable.create(%R2, %i2, %R3, %R1, %R0)
+[0000059C]    vm.global.store.ref %R4, .refs[1] : !hal.executable
+[000005A7]    vm.global.store.ref %R5, .refs[2] : !hal.executable
+[000005B2]    vm.global.store.ref %R6, .refs[3] : !hal.executable
+[000005BD]    %r1 = vm.call @residual_mlp.__init()
+[000005C8]    vm.global.store.ref %R1, .refs[4] : !hal.command_buffer
+[000005D3]    vm.return 
+[000005D6]    <block>
+[000005D7]    vm.discard.refs %r0, %r2, %r3, %r4, %r5
+[000005E4]    vm.fail %i1, "HAL device `__device_0` does not support any variant of executable `main_dispatch_2`; available formats: [metal-msl-fb]"
+

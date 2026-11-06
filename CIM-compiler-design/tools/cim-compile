@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from cim_compiler.pipeline import (  # noqa: E402
+    OPTIMIZATION_PIPELINES,
+    SRAM_ALLOCATIONS,
+    CompileError,
+    PIPELINE_TARGETS,
+    emit_pipeline_artifacts,
+)
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Run the CIM compiler pipeline and emit primary artifacts."
+    )
+    parser.add_argument("model", type=Path, help="Path to the ONNX model.")
+    parser.add_argument(
+        "--emit-dir",
+        type=Path,
+        required=True,
+        help="Directory for generated MLIR and CIM payload artifacts.",
+    )
+    parser.add_argument(
+        "--compile-to",
+        default="payload",
+        choices=sorted(PIPELINE_TARGETS),
+        help=(
+            "Pipeline stop point. Use preprocessing/flow/stream for IREE "
+            "stage studies; "
+            "default payload emits .cim.payload artifacts."
+        ),
+    )
+    parser.add_argument(
+        "--optimization-pipeline",
+        choices=OPTIMIZATION_PIPELINES,
+        default="replicated",
+        help="Cumulative MVM transformation pipeline.",
+    )
+    parser.add_argument(
+        "--sram-allocation",
+        choices=SRAM_ALLOCATIONS,
+        default="reuse",
+        help="SRAM allocation strategy; reuse is the default.",
+    )
+    parser.add_argument(
+        "--emit-stages",
+        action="store_true",
+        help=(
+            "Also keep every intermediate result: IREE compilation phases "
+            "under <emit-dir>/stages/iree and the CIM physicalization stages "
+            "under <emit-dir>/stages/cim."
+        ),
+    )
+    args = parser.parse_args(argv)
+
+    try:
+        artifact_paths = emit_pipeline_artifacts(
+            args.model,
+            args.emit_dir,
+            compile_to=args.compile_to,
+            optimization_pipeline=args.optimization_pipeline,
+            sram_allocation=args.sram_allocation,
+            emit_stages=args.emit_stages,
+        )
+    except CompileError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+
+    for path in artifact_paths.values():
+        print(path)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

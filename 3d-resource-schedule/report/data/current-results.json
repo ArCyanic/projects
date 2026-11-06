@@ -1,0 +1,2521 @@
+{
+  "batch": "build/dac-paper-full-workload",
+  "baseline": "full-workload-balanced-single-copy",
+  "prefill_scheduler": "minimum-cumulative-work-canonical-tree",
+  "curves": [
+    {
+      "profile": "planar",
+      "bandwidth": 0.5,
+      "gains": {
+        "decode": [
+          0.0,
+          2.012131843494336,
+          6.002628868199045,
+          9.042423839242863,
+          9.845698536360015,
+          10.440402059460553,
+          12.149427809771229,
+          12.213838731385717,
+          13.549447893090994,
+          14.6386010356644,
+          15.443284825727588,
+          16.101139323090262,
+          16.70112318280713,
+          17.26094040299112,
+          17.85430156581137,
+          18.283869955678256,
+          18.64083743322613,
+          19.040388224941662,
+          19.434344608717026,
+          19.741064136759057,
+          20.178229147578442
+        ],
+        "32": [
+          0.0,
+          -0.6708235749505187,
+          -0.3496402799458398,
+          0.6058941202793933,
+          4.580366210985687,
+          4.916210995754811,
+          4.989931302461903,
+          6.21165834137064,
+          7.135936378801344,
+          8.136905285769148,
+          7.614327900593487,
+          6.939778534974805,
+          8.728137916284107,
+          6.770879381252904,
+          10.045728542114219,
+          6.018501269487652,
+          9.962442016124019,
+          7.881356324751188,
+          8.184534988094594,
+          9.290329518996398,
+          10.357476523994391
+        ],
+        "128": [
+          0.0,
+          -1.121216466302899,
+          1.3590983722753802,
+          4.8332839768408515,
+          7.411202231779823,
+          7.740581273452618,
+          8.039118900651532,
+          8.080547666362726,
+          7.674548893819077,
+          8.114479798278552,
+          8.736963443075519,
+          8.330347779613867,
+          8.669280801950674,
+          8.723451339973188,
+          8.257507679900499,
+          8.985598665862227,
+          9.083562196210583,
+          8.936422752277306,
+          9.053099684280241,
+          9.702416518297097,
+          9.072708673765007
+        ],
+        "512": [
+          0.0,
+          2.81192911797441,
+          6.3085405473655705,
+          10.573411422769851,
+          11.112577315303017,
+          11.413475973794219,
+          11.268011989771399,
+          11.256900639431834,
+          11.281565191241915,
+          11.412217537136037,
+          11.511590471863009,
+          11.580925491587513,
+          11.600452233733538,
+          11.595687921616115,
+          11.364108955736274,
+          11.882680855034467,
+          11.833627639450894,
+          11.673454466950394,
+          11.653387242393476,
+          11.709410261006948,
+          11.903046554952612
+        ]
+      },
+      "runs": [
+        {
+          "first": 0,
+          "last": 20,
+          "anchor": "compute-balanced"
+        }
+      ],
+      "end": {
+        "decode": 20.178229147578442,
+        "32": 10.357476523994391,
+        "128": 9.072708673765007,
+        "512": 11.903046554952612
+      },
+      "late": {
+        "decode": 4.734944321850854,
+        "32": 2.743148623400904,
+        "128": 0.33574523068948814,
+        "512": 0.39145608308960256
+      },
+      "five_percent_share": {
+        "decode": 51.740923264881694,
+        "32": 47.4653356381334,
+        "128": 85.31720296316335,
+        "512": 95.8870144807197
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/envelope.json",
+      "anchor_comparison": [
+        {
+          "capacity_budget_percent": 0,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.827922130078621
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 0.9995974775258285,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.38736722644155197
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 1.999194955051657,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.2524030077922397
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 2.9987924325774857,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.18787239819766843
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 3.998389910103314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.1988454598045868
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 4.997987387629142,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.14909707040457976
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 5.9975848651549715,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.13748564975479027
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 6.9971823426808,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.1588926078011399
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 7.996779820206628,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.13556963666938326
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 9.003086005635314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.13160351298735473
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 10.002683483161142,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.1308527790154923
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 11.002280960686972,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.1097729045793785
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 12.0018784382128,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.13006853702435772
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 13.001475915738629,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.1003837929693292
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 14.001073393264457,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.14598587129144347
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 15.000670870790286,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.09666172445577059
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.000268348316116,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.14072447024692925
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.999865825841944,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.10183646917643419
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 17.999463303367772,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.09043857253627174
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 18.9990607808936,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.11043922765274572
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 19.99865825841943,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.13358742782682942
+          },
+          "effective_maximum_prefill_regret": 0.02
+        }
+      ]
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 2.0,
+      "gains": {
+        "decode": [
+          0.0,
+          4.225223570111957,
+          6.6847856690404495,
+          7.6537944541519405,
+          8.360661178308648,
+          8.890554043187393,
+          9.392728334235034,
+          9.902025212884634,
+          10.374769566131391,
+          10.804500093051562,
+          11.181373639191584,
+          11.556100271068726,
+          11.852580061007668,
+          12.160961479372167,
+          12.468572894802964,
+          12.793073140678057,
+          15.032084301411041,
+          13.317778462496255,
+          15.302449576085586,
+          15.413236801661457,
+          15.541597685440035
+        ],
+        "32": [
+          0.0,
+          -1.0259985984827802,
+          1.2781134148894813,
+          4.551939876982591,
+          5.602682086382204,
+          6.795554576363427,
+          6.463366362445944,
+          6.144062051296551,
+          6.9539323079515825,
+          8.361617980760737,
+          7.3022283099729695,
+          8.468611402754412,
+          9.173443518052649,
+          8.014660414889608,
+          9.465013104453767,
+          10.139538369880208,
+          7.288203826833362,
+          9.79054405334564,
+          8.33789856446322,
+          8.310361695493674,
+          9.549020340388758
+        ],
+        "128": [
+          0.0,
+          0.40305360095302945,
+          5.567383232927758,
+          5.760904135599121,
+          6.8723230227405345,
+          6.746745318215952,
+          6.949115979115494,
+          6.658204631079478,
+          7.267269595267967,
+          7.359580299304191,
+          7.692495670283139,
+          7.736190729830172,
+          7.1525609456223656,
+          7.613703311805664,
+          7.544384074069255,
+          7.547587096342934,
+          7.0104276611677285,
+          7.812370270966396,
+          7.375638515527161,
+          7.7030795699700505,
+          7.810228291267862
+        ],
+        "512": [
+          0.0,
+          -0.9898745269312004,
+          3.8839286526678007,
+          4.050749289176636,
+          4.196717787810867,
+          4.281770305781829,
+          4.263710525789943,
+          4.340764939278097,
+          4.3099633149014105,
+          4.351034208619009,
+          4.375775859862041,
+          4.460489160677994,
+          4.5417979226518135,
+          4.407068642411072,
+          4.406876066005372,
+          4.4519778135726495,
+          4.313683219692344,
+          4.514520976526337,
+          4.439567235940778,
+          4.477375814675488,
+          4.437228934354076
+        ]
+      },
+      "runs": [
+        {
+          "first": 0,
+          "last": 15,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 16,
+          "last": 16,
+          "anchor": "hypergraph"
+        },
+        {
+          "first": 17,
+          "last": 17,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 18,
+          "last": 20,
+          "anchor": "hypergraph"
+        }
+      ],
+      "end": {
+        "decode": 15.541597685440035,
+        "32": 9.549020340388758,
+        "128": 7.810228291267862,
+        "512": 4.437228934354076
+      },
+      "late": {
+        "decode": 4.360224046248451,
+        "32": 2.2467920304157882,
+        "128": 0.11773262098472248,
+        "512": 0.061453074492034965
+      },
+      "five_percent_share": {
+        "decode": 57.204891177413536,
+        "32": 71.16493979618822,
+        "128": 86.38345854447142,
+        "512": 96.49649294926729
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/envelope.json",
+      "anchor_comparison": [
+        {
+          "capacity_budget_percent": 0,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.5124105776318688
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 0.9995974775258285,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.16599110464037592
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 1.999194955051657,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.17341892618624155
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 2.9987924325774857,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.13529250213826094
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 3.998389910103314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.12601476636852338
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 4.997987387629142,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.10935630635214877
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 5.9975848651549715,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.07722013438969388
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 6.9971823426808,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.07299113664174506
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 7.996779820206628,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.07872424817317936
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 9.003086005635314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.07112534588350528
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 10.002683483161142,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.0455884031302618
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 11.002280960686972,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.033138347029506354
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 12.0018784382128,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.05685831896876503
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 13.001475915738629,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.029965630364719997
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 14.001073393264457,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.032665918657615034
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 15.000670870790286,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.031004093296702173
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.000268348316116,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.014615940535620542
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.999865825841944,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.024306590381351745
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 17.999463303367772,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.009230901318352469
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 18.9990607808936,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.017692659460129878
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 19.99865825841943,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.008256603648255867
+          },
+          "effective_maximum_prefill_regret": 0.02
+        }
+      ]
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 8.0,
+      "gains": {
+        "decode": [
+          0.0,
+          11.48114514601234,
+          12.465574848978466,
+          11.006961695042271,
+          12.346262343369862,
+          14.390593458900124,
+          14.992657113677843,
+          15.80678759136952,
+          16.367404480945414,
+          16.971746713168024,
+          17.63692514921723,
+          18.144903189208904,
+          18.748034263817072,
+          19.282437615986414,
+          19.748250863480198,
+          20.17914801437122,
+          20.611357220515604,
+          20.999567337140423,
+          21.437720296383077,
+          21.87160842821223,
+          22.25444588340222
+        ],
+        "32": [
+          0.0,
+          1.089037468626941,
+          2.556271370021912,
+          4.659720881493223,
+          5.971460178820587,
+          4.926188898560113,
+          5.893479185474327,
+          6.050471810775715,
+          6.346265091515313,
+          6.472134827663445,
+          7.464448061266915,
+          6.9584045043221465,
+          7.902445501687916,
+          8.20296054535643,
+          9.000962448682282,
+          8.777673395658203,
+          9.019106481865968,
+          8.53438276312054,
+          9.626272464176623,
+          9.35835436255541,
+          8.811528675541902
+        ],
+        "128": [
+          0.0,
+          2.631245238369906,
+          6.039017397060576,
+          5.805544785384431,
+          6.390324347562526,
+          6.53390889901504,
+          6.861852519573941,
+          6.860336028892733,
+          6.846252416760567,
+          6.804768194858546,
+          7.103416429211451,
+          7.084538965742649,
+          7.100664651419053,
+          7.204187737127421,
+          7.41154189340657,
+          7.520066385467561,
+          7.219051354400252,
+          7.453036158293235,
+          7.309213922870816,
+          7.413476841781275,
+          7.501932102862396
+        ],
+        "512": [
+          0.0,
+          3.0519834392341516,
+          4.05038283065794,
+          4.15543008963597,
+          4.28389534717547,
+          4.2659134644792545,
+          4.308556341168157,
+          4.39779209709693,
+          4.360796627815278,
+          4.436787321474888,
+          4.428659227595388,
+          4.4961814623392105,
+          4.488597068452737,
+          4.540505830713871,
+          4.552247982433199,
+          4.567544075570373,
+          4.592663899313266,
+          4.549441075965133,
+          4.562710892055122,
+          4.553274381932237,
+          4.654536958519784
+        ]
+      },
+      "runs": [
+        {
+          "first": 0,
+          "last": 0,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 1,
+          "last": 2,
+          "anchor": "hypergraph"
+        },
+        {
+          "first": 3,
+          "last": 4,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 5,
+          "last": 20,
+          "anchor": "hypergraph"
+        }
+      ],
+      "end": {
+        "decode": 22.25444588340222,
+        "32": 8.811528675541902,
+        "128": 7.501932102862396,
+        "512": 4.654536958519784
+      },
+      "late": {
+        "decode": 4.617520734184989,
+        "32": 1.3470806142749874,
+        "128": 0.39851567365094454,
+        "512": 0.22587773092439534
+      },
+      "five_percent_share": {
+        "decode": 64.66390371747201,
+        "32": 55.90617791704748,
+        "128": 87.09634810640311,
+        "512": 91.65065188000746
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/envelope.json",
+      "anchor_comparison": [
+        {
+          "capacity_budget_percent": 0,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.10375332371983337
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 0.9995974775258285,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.026465810034657977,
+            "hypergraph": 0.004918011229897212
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 1.999194955051657,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.008167375056412851,
+            "hypergraph": 0.0
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 2.9987924325774857,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.004506203151493304,
+            "hypergraph": 0.02188933517591196
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 3.998389910103314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0019658272419753597,
+            "hypergraph": 0.027505518054789846
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 4.997987387629142,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0003193072733469471,
+            "hypergraph": 0.016807811594399702
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 5.9975848651549715,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0013944434254613558,
+            "hypergraph": 0.0030808138161686482
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 6.9971823426808,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.003196571844188645,
+            "hypergraph": 0.00677732892102112
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 7.996779820206628,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.010197259479243659
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 9.003086005635314,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.012012477747946892
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 10.002683483161142,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.006648982669389181,
+            "hypergraph": 0.0009200680723713273
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 11.002280960686972,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.000633178159742176,
+            "hypergraph": 0.0053959834447891986
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 12.0018784382128,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0007185487864957985,
+            "hypergraph": 0.0004425920676927042
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 13.001475915738629,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.011467427438081046
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 14.001073393264457,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0024504249312269355,
+            "hypergraph": 0.008096480682820761
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 15.000670870790286,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0028698399441611233,
+            "hypergraph": 0.005475765767098517
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.000268348316116,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.002397712050168588
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.999865825841944,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 7.462401235769356e-05,
+            "hypergraph": 0.008607959808993426
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 17.999463303367772,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0031303158746769366,
+            "hypergraph": 0.004579894599765488
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 18.9990607808936,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.009487256762416463
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 19.99865825841943,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0005303622636942951,
+            "hypergraph": 0.0028098338086013364
+          },
+          "effective_maximum_prefill_regret": 0.02
+        }
+      ]
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 0.5,
+      "gains": {
+        "decode": [
+          0.0,
+          1.930910593736923,
+          3.738367833984191,
+          4.61466132991365,
+          6.4232369704845915,
+          7.2231971264305805,
+          9.037927432309035,
+          9.780841743393342,
+          10.507476154342243,
+          11.156473526271016,
+          11.602323740105568,
+          12.078057814754317,
+          12.57670155053784,
+          12.959142918476063,
+          13.122395391262442,
+          13.577152430249107,
+          13.766768247806993,
+          13.906162440333958,
+          14.337266845997387,
+          14.373114308455948,
+          14.606696689016928
+        ],
+        "32": [
+          0.0,
+          1.272840175833878,
+          2.2439954615761204,
+          4.454387027847984,
+          5.879895357940013,
+          6.992845886146148,
+          6.831370040663154,
+          8.431197447875437,
+          7.07728945629883,
+          8.870827322389108,
+          9.420410986123839,
+          7.547531593694556,
+          7.207054901923038,
+          8.68671539412249,
+          9.334435447102408,
+          6.1988341039046375,
+          6.961117409958528,
+          7.934351473516799,
+          8.408999716066068,
+          9.093744609582256,
+          10.42057877964625
+        ],
+        "128": [
+          0.0,
+          4.997576036105922,
+          6.420039458344262,
+          7.640031525656898,
+          8.19942541644123,
+          8.337539823665384,
+          8.802517887917016,
+          8.59743317239322,
+          8.474270379281545,
+          8.659476288814483,
+          9.056870598259714,
+          8.477379467440539,
+          8.905794027108104,
+          9.593879577494668,
+          8.932080667718601,
+          9.07253637397708,
+          9.323680589050953,
+          9.20477529781455,
+          9.043738395854916,
+          9.198410626808396,
+          9.849841113430779
+        ],
+        "512": [
+          0.0,
+          4.092304374949096,
+          5.809894202844735,
+          6.7435321413897515,
+          6.661466330223886,
+          6.651203473836764,
+          6.6646685370993275,
+          6.894618020433862,
+          6.906778649140987,
+          6.943822424028811,
+          6.8787733163134135,
+          6.892428820731267,
+          6.858817878705114,
+          6.758959622135119,
+          6.654379473213767,
+          6.85476934434689,
+          6.867833957033353,
+          6.915558510550013,
+          6.88821675158281,
+          6.949312021367648,
+          6.984013544762013
+        ]
+      },
+      "runs": [
+        {
+          "first": 0,
+          "last": 20,
+          "anchor": "compute-balanced"
+        }
+      ],
+      "end": {
+        "decode": 14.606696689016928,
+        "32": 10.42057877964625,
+        "128": 9.849841113430779,
+        "512": 6.984013544762013
+      },
+      "late": {
+        "decode": 3.00437294891136,
+        "32": 1.0001677935224116,
+        "128": 0.7929705151710653,
+        "512": 0.10524022844859982
+      },
+      "five_percent_share": {
+        "decode": 49.4512707439311,
+        "32": 67.10611794236189,
+        "128": 84.64643975116216,
+        "512": 95.23468749319858
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/envelope.json",
+      "anchor_comparison": [
+        {
+          "capacity_budget_percent": 0,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.7557865719752708
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 0.9995974775258285,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.4676909321261855
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 1.999194955051657,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.3140554023426363
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 2.9987924325774857,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.254573269454502
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 3.998389910103314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.2260644984650042
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 4.997987387629142,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.19546112058884657
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 5.9975848651549715,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.1799017932779301
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 6.9971823426808,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.20282105557606123
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 7.996779820206628,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.16239756676989936
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 9.003086005635314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.14514414183173807
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 10.002683483161142,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.14433444313608756
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 11.002280960686972,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.09892644724081845
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 12.0018784382128,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.10577930338700758
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 13.001475915738629,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.1066216104328992
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 14.001073393264457,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.11727185804871865
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 15.000670870790286,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.06264102299419227
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.000268348316116,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.05396512733647696
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.999865825841944,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.04911473685569412
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 17.999463303367772,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.06733768474241986
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 18.9990607808936,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.042733805897051225
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 19.99865825841943,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.06684854433710896
+          },
+          "effective_maximum_prefill_regret": 0.02
+        }
+      ]
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 2.0,
+      "gains": {
+        "decode": [
+          0.0,
+          6.638709369168161,
+          8.494049287538974,
+          11.915661273143884,
+          10.658791072255324,
+          12.80609414373921,
+          13.270464344538935,
+          13.677196642273604,
+          14.136321375046057,
+          14.53470321312096,
+          14.926224801274113,
+          15.328688113314904,
+          15.792415726003895,
+          16.16235328883393,
+          16.51525436354525,
+          16.80080940239955,
+          17.122600316874237,
+          17.433079752794878,
+          17.698806580239,
+          18.002134757511712,
+          18.259039139774714
+        ],
+        "32": [
+          0.0,
+          2.3428090980030514,
+          4.361370008437837,
+          3.9703900166628836,
+          5.793871990225885,
+          5.44648359806823,
+          6.040613791387839,
+          6.813404740893548,
+          6.66498825628572,
+          7.836047032115223,
+          8.100769038222488,
+          7.243532058927871,
+          8.484910942371648,
+          9.457679685018539,
+          8.754024025964224,
+          9.340455325719299,
+          8.52307656298179,
+          9.941210823174206,
+          9.639643421295451,
+          9.549781084476205,
+          9.393230467346047
+        ],
+        "128": [
+          0.0,
+          5.877324155779529,
+          7.694957353605314,
+          6.916525140202201,
+          8.651099767847736,
+          8.449853913217432,
+          8.939566690127009,
+          9.009982272306038,
+          9.135375515017696,
+          9.209857905068453,
+          9.354641581390732,
+          9.328067782895566,
+          9.6436892863628,
+          9.54256664670785,
+          9.63128950942057,
+          9.879928295000507,
+          9.762945104645816,
+          9.89505788350108,
+          9.987487389074657,
+          9.701305055923326,
+          9.913056830888934
+        ],
+        "512": [
+          0.0,
+          5.0760307070807915,
+          6.673352609591143,
+          6.34819887385778,
+          6.984210572254012,
+          6.885157757043925,
+          6.991110456939287,
+          7.006071891512389,
+          7.028969034751908,
+          7.0302610981003095,
+          7.112973483291674,
+          7.101835308333603,
+          7.101490033673219,
+          7.184891566054741,
+          7.169904192065535,
+          7.197916658268488,
+          7.217050132443504,
+          7.206278965170132,
+          7.2064507261687005,
+          7.212917352498405,
+          7.192064515674468
+        ]
+      },
+      "runs": [
+        {
+          "first": 0,
+          "last": 2,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 3,
+          "last": 3,
+          "anchor": "hypergraph"
+        },
+        {
+          "first": 4,
+          "last": 4,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 5,
+          "last": 20,
+          "anchor": "hypergraph"
+        }
+      ],
+      "end": {
+        "decode": 18.259039139774714,
+        "32": 9.393230467346047,
+        "128": 9.913056830888934,
+        "512": 7.192064515674468
+      },
+      "late": {
+        "decode": 3.332814338500601,
+        "32": 1.2924614291235592,
+        "128": 0.5584152494982018,
+        "512": 0.07909103238279425
+      },
+      "five_percent_share": {
+        "decode": 70.13564101433442,
+        "32": 57.983072139047316,
+        "128": 85.2396395720018,
+        "512": 95.73270292609769
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/envelope.json",
+      "anchor_comparison": [
+        {
+          "capacity_budget_percent": 0,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.19080825222562825
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 0.9995974775258285,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.04178867786582274
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 1.999194955051657,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.04136391794296235
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 2.9987924325774857,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.004818382289584644,
+            "hypergraph": 0.016429279961436727
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 3.998389910103314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.020026008411538676
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 4.997987387629142,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.015132976743282844
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 5.9975848651549715,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.010165448829061896
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 6.9971823426808,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.005035978203846492
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 7.996779820206628,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.01672167474034736
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 9.003086005635314,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.003961499403627888
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 10.002683483161142,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.006312537525798412
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 11.002280960686972,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.010130025073062932
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 12.0018784382128,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.006393285140305904,
+            "hypergraph": 0.002779008259560012
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 13.001475915738629,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.01152483609522581,
+            "hypergraph": 0.0031326327165550616
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 14.001073393264457,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.014273769708552209
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 15.000670870790286,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0022904820763096634,
+            "hypergraph": 0.004433860843507276
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.000268348316116,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.014657003220147624
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.999865825841944,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.005141204607021832
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 17.999463303367772,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.0016800471629054847
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 18.9990607808936,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.00903883357916091
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 19.99865825841943,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.014916385847436597
+          },
+          "effective_maximum_prefill_regret": 0.02
+        }
+      ]
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 8.0,
+      "gains": {
+        "decode": [
+          0.0,
+          12.500475426419044,
+          13.389169386255729,
+          12.2461555233635,
+          14.750633564273762,
+          15.37308543793623,
+          16.069504887427,
+          16.605624222493766,
+          17.342884060144403,
+          17.99103675938374,
+          18.745565146443766,
+          19.37562866081831,
+          20.156166178224634,
+          20.543566696038017,
+          21.396033581337814,
+          21.97427823374114,
+          22.41133819215767,
+          23.047408855379935,
+          23.590388842146716,
+          24.128564321492618,
+          24.593798889910012
+        ],
+        "32": [
+          0.0,
+          3.0590894187002116,
+          4.486633221300396,
+          7.043529748604815,
+          5.896441308680189,
+          6.399006413232689,
+          8.075140265144354,
+          6.862658324129112,
+          7.567446353328611,
+          9.958152123130438,
+          9.252179779341407,
+          10.646055210039162,
+          9.712360923399931,
+          11.173152545374842,
+          9.973451534052359,
+          9.741678751912241,
+          10.414243756402254,
+          10.194275448660662,
+          10.585394133369586,
+          10.615417716698516,
+          11.715307594777435
+        ],
+        "128": [
+          0.0,
+          6.907534379480095,
+          8.132458427979783,
+          8.344611643244937,
+          8.648348177187371,
+          8.713583340452624,
+          8.951917722364078,
+          8.962109380714145,
+          9.2891228126893,
+          9.430679857354185,
+          9.374882899128034,
+          9.567157771720613,
+          9.300174797160421,
+          9.77553436906,
+          9.557883883626994,
+          9.65233940907485,
+          9.54527957158965,
+          9.757204346223281,
+          9.617820827333146,
+          9.722959626057381,
+          9.800406343782974
+        ],
+        "512": [
+          0.0,
+          6.374610995698271,
+          6.764749492339273,
+          6.884744595353021,
+          6.982141379977536,
+          7.1157952235514355,
+          7.02339468367642,
+          7.1026713565078055,
+          7.1234616270427935,
+          7.11884242428037,
+          7.124027014655021,
+          7.146631646305435,
+          7.207948143293564,
+          7.166643982768517,
+          7.2032121451993225,
+          7.262163975139291,
+          7.252152195120032,
+          7.2739662661761795,
+          7.253127593972142,
+          7.265067724544771,
+          7.26609818906383
+        ]
+      },
+      "runs": [
+        {
+          "first": 0,
+          "last": 0,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 1,
+          "last": 2,
+          "anchor": "hypergraph"
+        },
+        {
+          "first": 3,
+          "last": 3,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 4,
+          "last": 8,
+          "anchor": "hypergraph"
+        },
+        {
+          "first": 9,
+          "last": 9,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 10,
+          "last": 10,
+          "anchor": "hypergraph"
+        },
+        {
+          "first": 11,
+          "last": 11,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 12,
+          "last": 12,
+          "anchor": "hypergraph"
+        },
+        {
+          "first": 13,
+          "last": 13,
+          "anchor": "compute-balanced"
+        },
+        {
+          "first": 14,
+          "last": 20,
+          "anchor": "hypergraph"
+        }
+      ],
+      "end": {
+        "decode": 24.593798889910012,
+        "32": 11.715307594777435,
+        "128": 9.800406343782974,
+        "512": 7.26609818906383
+      },
+      "late": {
+        "decode": 5.8482337434662455,
+        "32": 2.463127815436028,
+        "128": 0.4255234446549405,
+        "512": 0.1420711744088088
+      },
+      "five_percent_share": {
+        "decode": 62.50797409034387,
+        "32": 54.62089971999797,
+        "128": 88.91042916787025,
+        "512": 97.93144874179357
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/envelope.json",
+      "anchor_comparison": [
+        {
+          "capacity_budget_percent": 0,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.022118934931093515
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 0.9995974775258285,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.01147194864412926,
+            "hypergraph": 0.0011870422533524216
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 1.999194955051657,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0021313622622789463,
+            "hypergraph": 0.013383289984378433
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 2.9987924325774857,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0011077724289700885,
+            "hypergraph": 0.028538784587870625
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 3.998389910103314,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0001767147506173128,
+            "hypergraph": 0.016819837818780048
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 4.997987387629142,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0008619093389083954,
+            "hypergraph": 0.012817699023948359
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 5.9975848651549715,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.0033127442917431082
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 6.9971823426808,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0004942320931715649,
+            "hypergraph": 0.016188489649004545
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 7.996779820206628,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0012047816431022262,
+            "hypergraph": 0.018808835386685985
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 9.003086005635314,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 7.418116744273284e-05,
+            "hypergraph": 0.005218010974487042
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 10.002683483161142,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.005370597696690238
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 11.002280960686972,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0003310290726821208,
+            "hypergraph": 0.01647501822316544
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 12.0018784382128,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0002000844743157426,
+            "hypergraph": 0.00701643850845568
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 13.001475915738629,
+          "selected_anchor": "compute-balanced",
+          "prefill_regret": {
+            "compute-balanced": 0.0007775619971333025,
+            "hypergraph": 0.020198498308061863
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 14.001073393264457,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0007043891561162585,
+            "hypergraph": 0.006831249312406973
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 15.000670870790286,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0008680388286346208,
+            "hypergraph": 0.0067900270658554085
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.000268348316116,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.00754210354062268
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 16.999865825841944,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.00036542029088537653,
+            "hypergraph": 0.009905548785950291
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 17.999463303367772,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.00012223430028535098,
+            "hypergraph": 0.002449958389720175
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 18.9990607808936,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0,
+            "hypergraph": 0.003250748990689001
+          },
+          "effective_maximum_prefill_regret": 0.02
+        },
+        {
+          "capacity_budget_percent": 19.99865825841943,
+          "selected_anchor": "hypergraph",
+          "prefill_regret": {
+            "compute-balanced": 0.0016016035022212716,
+            "hypergraph": 0.0
+          },
+          "effective_maximum_prefill_regret": 0.02
+        }
+      ]
+    }
+  ],
+  "single_copy": [
+    {
+      "bandwidth": 0.5,
+      "baseline": {
+        "mean_ns": 5866750.591796875,
+        "p95_ns": 6000204.0,
+        "node_serialization_ns": 360374.9853515625,
+        "mesh_service_ns": 4622460.5,
+        "collective_contention_ns": 14107.1064453125,
+        "critical_hops_per_route": 320.437255859375,
+        "critical_serialization_ns_per_route": 360374.9853515625
+      },
+      "hypergraph": {
+        "mean_ns": 4611253.5283203125,
+        "p95_ns": 4865800.0,
+        "node_serialization_ns": 536874.873046875,
+        "mesh_service_ns": 3193977.5,
+        "collective_contention_ns": 10593.1552734375,
+        "critical_hops_per_route": 220.794189453125,
+        "critical_serialization_ns_per_route": 536874.873046875
+      },
+      "mean_gain": 21.40021198842249,
+      "p95_gain": 18.906090526255436,
+      "structure": {
+        "baseline": {
+          "serial": 28.738037109375,
+          "hops": 320.437255859375,
+          "serial_reference": 34.013671875,
+          "hop_reference": 116,
+          "reference_ns": 2987987.4453125,
+          "mean_ns": 5866750.591796875
+        },
+        "hypergraph": {
+          "serial": 42.81298828125,
+          "hops": 220.794189453125,
+          "serial_reference": 34.013671875,
+          "hop_reference": 116,
+          "reference_ns": 2987987.4453125,
+          "mean_ns": 4611253.5283203125
+        }
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/0.5-hypergraph.json"
+    },
+    {
+      "bandwidth": 2,
+      "baseline": {
+        "mean_ns": 2422626.7275390625,
+        "p95_ns": 2496784.0,
+        "node_serialization_ns": 358048.2275390625,
+        "mesh_service_ns": 1194770.5,
+        "collective_contention_ns": 0.0,
+        "critical_hops_per_route": 331.3623046875,
+        "critical_serialization_ns_per_route": 358048.2275390625
+      },
+      "hypergraph": {
+        "mean_ns": 2192815.0126953125,
+        "p95_ns": 2262084.0,
+        "node_serialization_ns": 322277.3876953125,
+        "mesh_service_ns": 1000729.625,
+        "collective_contention_ns": 0.0,
+        "critical_hops_per_route": 277.221435546875,
+        "critical_serialization_ns_per_route": 322277.3876953125
+      },
+      "mean_gain": 9.48605545507194,
+      "p95_gain": 9.400092278707328,
+      "structure": {
+        "baseline": {
+          "serial": 28.552490234375,
+          "hops": 331.3623046875,
+          "serial_reference": 34.013671875,
+          "hop_reference": 116,
+          "reference_ns": 1719251.4453125,
+          "mean_ns": 2422626.7275390625
+        },
+        "hypergraph": {
+          "serial": 25.699951171875,
+          "hops": 277.221435546875,
+          "serial_reference": 34.013671875,
+          "hop_reference": 116,
+          "reference_ns": 1719251.4453125,
+          "mean_ns": 2192815.0126953125
+        }
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/2-hypergraph.json"
+    },
+    {
+      "bandwidth": 8,
+      "baseline": {
+        "mean_ns": 1771210.3017578125,
+        "p95_ns": 1854252.0,
+        "node_serialization_ns": 723336.9580078125,
+        "mesh_service_ns": 178065.34375,
+        "collective_contention_ns": 0.0,
+        "critical_hops_per_route": 196.733642578125,
+        "critical_serialization_ns_per_route": 723336.9580078125
+      },
+      "hypergraph": {
+        "mean_ns": 1580918.869140625,
+        "p95_ns": 1650920.0,
+        "node_serialization_ns": 523563.369140625,
+        "mesh_service_ns": 187547.5,
+        "collective_contention_ns": 0.0,
+        "critical_hops_per_route": 207.31640625,
+        "critical_serialization_ns_per_route": 523563.369140625
+      },
+      "mean_gain": 10.743582082169212,
+      "p95_gain": 10.965715555382982,
+      "structure": {
+        "baseline": {
+          "serial": 57.682373046875,
+          "hops": 196.733642578125,
+          "serial_reference": 34.013671875,
+          "hop_reference": 116,
+          "reference_ns": 1402067.4453125,
+          "mean_ns": 1771210.3017578125
+        },
+        "hypergraph": {
+          "serial": 41.75146484375,
+          "hops": 207.31640625,
+          "serial_reference": 34.013671875,
+          "hop_reference": 116,
+          "reference_ns": 1402067.4453125,
+          "mean_ns": 1580918.869140625
+        }
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/8-hypergraph.json"
+    }
+  ],
+  "runtime": [
+    {
+      "profile": "planar",
+      "bandwidth": 0.5,
+      "balanced": 1027.6146795519744,
+      "hypergraph": 965.1835960440221
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 2,
+      "balanced": 940.4029666300048,
+      "hypergraph": 1004.1132334530121
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 8,
+      "balanced": 874.1896075059776,
+      "hypergraph": 916.3362693130039
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 0.5,
+      "balanced": 1036.7666739079868,
+      "hypergraph": 1063.488778334984
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 2,
+      "balanced": 938.2735259809997,
+      "hypergraph": 930.3038631369709
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 8,
+      "balanced": 915.1515447290149,
+      "hypergraph": 909.6708496069768
+    }
+  ],
+  "runtime_range": [
+    874.1896075059776,
+    1063.488778334984
+  ],
+  "runtime_sum_seconds": 11521.495588194928,
+  "batch_minutes": 42.8764849,
+  "tests": [
+    {
+      "profile": "planar",
+      "bandwidth": 0.5,
+      "decode": -0.40704310561835433,
+      "p95": 0.03583052891060756,
+      "prefill": {
+        "32": 2.7175052234279073,
+        "128": 0.4943292398008836,
+        "512": 0.11570623935894808
+      },
+      "prefill_range": [
+        0.11570623935894808,
+        2.7175052234279073
+      ],
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/0.5-endpoint-test.json"
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 2.0,
+      "decode": -0.12628921445879682,
+      "p95": -0.08498484041365995,
+      "prefill": {
+        "32": 1.1613518821090185,
+        "128": 0.3600954886012975,
+        "512": -0.0119225072180984
+      },
+      "prefill_range": [
+        -0.0119225072180984,
+        1.1613518821090185
+      ],
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/selected-20pct-test.json"
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 8.0,
+      "decode": -0.06441095778773054,
+      "p95": -0.061590237947284354,
+      "prefill": {
+        "32": -0.1522622257601025,
+        "128": 0.14287122659542018,
+        "512": 0.057705257609197425
+      },
+      "prefill_range": [
+        -0.1522622257601025,
+        0.14287122659542018
+      ],
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/8-endpoint-test.json"
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 0.5,
+      "decode": -0.43662604435381613,
+      "p95": -0.07417961132405448,
+      "prefill": {
+        "32": 0.2841086088063438,
+        "128": 0.43724690960926793,
+        "512": -0.11852130827301188
+      },
+      "prefill_range": [
+        -0.11852130827301188,
+        0.43724690960926793
+      ],
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/0.5-endpoint-test.json"
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 2.0,
+      "decode": -0.19311737599677636,
+      "p95": -0.21748305397287782,
+      "prefill": {
+        "32": -0.04543341202702944,
+        "128": 0.2521207725455499,
+        "512": -0.0560599384356375
+      },
+      "prefill_range": [
+        -0.0560599384356375,
+        0.2521207725455499
+      ],
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/selected-20pct-test.json"
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 8.0,
+      "decode": -0.2651780095907941,
+      "p95": 0.0,
+      "prefill": {
+        "32": 0.7485825430008974,
+        "128": 0.11246595931635461,
+        "512": -0.029356087389376118
+      },
+      "prefill_range": [
+        -0.029356087389376118,
+        0.7485825430008974
+      ],
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/8-endpoint-test.json"
+    }
+  ],
+  "cross_models": [
+    {
+      "name": "DeepSeek-V3",
+      "profiles": {
+        "planar": {
+          "decode": 15.687016454161885,
+          "32": 10.50590764367757,
+          "128": 7.590939452605506,
+          "512": 5.3087549376900744
+        },
+        "vertical": {
+          "decode": 18.462733080691663,
+          "32": 11.168830261737938,
+          "128": 8.099487514229352,
+          "512": 6.224697944237678
+        }
+      }
+    },
+    {
+      "name": "DeepSeek-V2-Lite",
+      "profiles": {
+        "planar": {
+          "decode": 15.182756269708408,
+          "32": 11.339041990943699,
+          "128": 12.61436966377768,
+          "512": 9.555857815595093
+        },
+        "vertical": {
+          "decode": 16.588470310312843,
+          "32": 9.414832554599261,
+          "128": 11.998363812849444,
+          "512": 9.170079383381236
+        }
+      }
+    },
+    {
+      "name": "Qwen2-57B-A14B",
+      "profiles": {
+        "planar": {
+          "decode": 16.450963205409796,
+          "32": 7.554421237058994,
+          "128": 5.483450605450269,
+          "512": 3.876570841641258
+        },
+        "vertical": {
+          "decode": 17.199282960044325,
+          "32": 7.501318357709419,
+          "128": 5.48922738673504,
+          "512": 3.855919122308127
+        }
+      }
+    }
+  ],
+  "ranges": {
+    "cross_decode": [
+      15.182756269708408,
+      18.462733080691663
+    ],
+    "cross_prefill": [
+      3.855919122308127,
+      12.61436966377768
+    ],
+    "validation": {
+      "decode": [
+        14.606696689016928,
+        24.593798889910012
+      ],
+      "32": [
+        8.811528675541902,
+        11.715307594777435
+      ],
+      "128": [
+        7.501932102862396,
+        9.913056830888934
+      ],
+      "512": [
+        4.437228934354076,
+        11.903046554952612
+      ]
+    },
+    "late": {
+      "decode": [
+        3.00437294891136,
+        5.8482337434662455
+      ],
+      "32": [
+        1.0001677935224116,
+        2.743148623400904
+      ],
+      "128": [
+        0.11773262098472248,
+        0.7929705151710653
+      ],
+      "512": [
+        0.061453074492034965,
+        0.39145608308960256
+      ]
+    },
+    "five_percent_share": {
+      "decode": [
+        49.4512707439311,
+        70.13564101433442
+      ],
+      "32": [
+        47.4653356381334,
+        71.16493979618822
+      ],
+      "128": [
+        84.64643975116216,
+        88.91042916787025
+      ],
+      "512": [
+        91.65065188000746,
+        97.93144874179357
+      ]
+    },
+    "one_percent_t512": [
+      -0.9898745269312004,
+      6.374610995698271
+    ],
+    "test_decode_abs": 0.43662604435381613,
+    "test_p95_abs": 0.21748305397287782,
+    "test_prefill": [
+      -0.1522622257601025,
+      2.7175052234279073
+    ],
+    "t512_execution_residual": [
+      0.7545323238038766,
+      1.8632421872560558
+    ]
+  },
+  "cross_replay": [
+    {
+      "bandwidth": 0.5,
+      "layout_bandwidth": 0.5,
+      "layout_anchor": "compute-balanced",
+      "capacity_budget_percent": 19.99865825841943,
+      "deployment_artifact": "build/dac-paper-full-workload/deepseek-v3/planar/0.5-balanced-curve.budget-20.npz",
+      "serial": 41.087646484375,
+      "hops": 227.487060546875,
+      "latency_ms": 4.682944213867187
+    },
+    {
+      "bandwidth": 0.5,
+      "layout_bandwidth": 8.0,
+      "layout_anchor": "hypergraph",
+      "capacity_budget_percent": 19.99865825841943,
+      "deployment_artifact": "build/dac-paper-full-workload/deepseek-v3/planar/8-hypergraph-curve.budget-20.npz",
+      "serial": 14.051513671875,
+      "hops": 301.190673828125,
+      "latency_ms": 5.41539441015625
+    },
+    {
+      "bandwidth": 8.0,
+      "layout_bandwidth": 0.5,
+      "layout_anchor": "compute-balanced",
+      "capacity_budget_percent": 19.99865825841943,
+      "deployment_artifact": "build/dac-paper-full-workload/deepseek-v3/planar/0.5-balanced-curve.budget-20.npz",
+      "serial": 68.99072265625,
+      "hops": 129.186279296875,
+      "latency_ms": 1.852494568359375
+    },
+    {
+      "bandwidth": 8.0,
+      "layout_bandwidth": 8.0,
+      "layout_anchor": "hypergraph",
+      "capacity_budget_percent": 19.99865825841943,
+      "deployment_artifact": "build/dac-paper-full-workload/deepseek-v3/planar/8-hypergraph-curve.budget-20.npz",
+      "serial": 22.89501953125,
+      "hops": 243.676025390625,
+      "latency_ms": 1.377037263671875
+    }
+  ],
+  "timeline": {
+    "32": {
+      "makespan_ns": 15543308,
+      "compute_service_exposure": 0.860610624199173,
+      "idle_area": 0.139389375800827
+    },
+    "128": {
+      "makespan_ns": 55607056,
+      "compute_service_exposure": 0.9622329943164047,
+      "idle_area": 0.037767005683595256
+    },
+    "512": {
+      "makespan_ns": 216357596,
+      "compute_service_exposure": 0.9892316237420201,
+      "idle_area": 0.010768376257979884
+    }
+  },
+  "dataflow": [
+    {
+      "profile": "planar",
+      "bandwidth": 0.5,
+      "decode_root": 35.18014760193733,
+      "decode_joint": 37.31186514745877,
+      "prefill": {
+        "32": 12.870760351832654,
+        "128": 12.928148943108575,
+        "512": 11.74895033951876
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/0.5-dataflow.json"
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 2.0,
+      "decode_root": 15.371632193957918,
+      "decode_joint": 24.91692595874142,
+      "prefill": {
+        "32": 14.61951206970199,
+        "128": 12.100111029982353,
+        "512": 10.023430366261143
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/2-dataflow.json"
+    },
+    {
+      "profile": "planar",
+      "bandwidth": 8.0,
+      "decode_root": 3.803184068421517,
+      "decode_joint": 26.98223976180674,
+      "prefill": {
+        "32": 12.28399295038426,
+        "128": 7.800579869042268,
+        "512": 4.622531039636646
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/planar/8-dataflow.json"
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 0.5,
+      "decode_root": 28.555036263101343,
+      "decode_joint": 32.53631672226279,
+      "prefill": {
+        "32": 14.374579028216129,
+        "128": 13.102475706176342,
+        "512": 11.70233153463337
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/0.5-dataflow.json"
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 2.0,
+      "decode_root": 8.715752651715858,
+      "decode_joint": 23.798741747469588,
+      "prefill": {
+        "32": 11.563003261586502,
+        "128": 7.505475357797642,
+        "512": 4.994822643267193
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/2-dataflow.json"
+    },
+    {
+      "profile": "vertical",
+      "bandwidth": 8.0,
+      "decode_root": 2.355341111719611,
+      "decode_joint": 29.47242964163921,
+      "prefill": {
+        "32": 12.117451380062317,
+        "128": 7.498083068812534,
+        "512": 4.303296884911956
+      },
+      "source": "build/dac-paper-full-workload/deepseek-v3/vertical/8-dataflow.json"
+    }
+  ]
+}

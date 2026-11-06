@@ -1,0 +1,30 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+/tmp/
+compile_commands.json
+
+# Keep final report artifacts; ignore rendered slide previews.
+/output/pptx/*/
+/output/pptx/*.inspect.ndjson
+/output/pptx/*-montage.png
+/doc/report/typst/formal-report.pdf
+.agents
+.claude
+.codex
+
+# Local IREE build outputs are too large for this project repo.
+/iree-build/
+/iree-build-*/
+/iree-cim-runtime-build
+
+# Keep only the unified P1 pipeline non-graph outputs as checked-in sample artifacts.
+artifacts
+
+# oh-my-codex runtime state is local agent process material, not project docs.
+/.omx/
+
+# Local deepwork state for agent sessions.
+/.slim/deepwork/
+/.ignore

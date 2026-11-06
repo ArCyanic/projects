@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron">
+  <diagram id="9IK7PLobpB-PP8-Fp1hb" name="pageWithNumber">
+    <mxGraphModel dx="2220" dy="1404" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="0" page="0" pageScale="1" pageWidth="1600" pageHeight="1360" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="band-high" parent="1" style="rounded=1;fillColor=#F7FAFF;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="283" width="1419" x="20" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="band-schedule" parent="1" style="rounded=1;fillColor=#F6FBF9;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="245" width="1424" x="20" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="band-codegen" parent="1" style="rounded=1;fillColor=#FFFDF6;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="283" width="1427" x="20" y="621" as="geometry" />
+        </mxCell>
+        <mxCell id="band-physical" parent="1" style="rounded=1;fillColor=#FFF9F5;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="260" width="1429" x="20" y="922" as="geometry" />
+        </mxCell>
+        <mxCell id="band-vm" parent="1" style="rounded=1;fillColor=#F8FAFC;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="65" width="1427" x="20" y="1192" as="geometry" />
+        </mxCell>
+        <mxCell id="header-semantic" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=18;fontColor=#172B4D;" value="语义层级" vertex="1">
+          <mxGeometry height="36" width="190" x="45" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="header-iree" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=18;fontColor=#0747A6;" value="IREE 原生阶段" vertex="1">
+          <mxGeometry height="36" width="370" x="310" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="header-cim" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=18;fontColor=#C2410C;" value="CIM COMPILER" vertex="1">
+          <mxGeometry height="36" width="300" x="770" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="separator-left" parent="1" style="rounded=0;fillColor=#E2E8F0;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="1239" width="1" x="270" y="18" as="geometry" />
+        </mxCell>
+        <mxCell id="separator-right" parent="1" style="rounded=0;fillColor=#E2E8F0;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="1193" width="1" x="730" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-line-high" parent="1" style="rounded=1;fillColor=#3B82F6;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="230" width="4" x="45" y="92" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-high" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=17;fontColor=#1E3A8A;" value="前端接入&#10;与高层语义优化" vertex="1">
+          <mxGeometry height="80" width="170" x="66" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-line-schedule" parent="1" style="rounded=1;fillColor=#10B981;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="200" width="4" x="45" y="383" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-schedule" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=17;fontColor=#065F46;" value="计算分组&#10;与执行调度" vertex="1">
+          <mxGeometry height="80" width="170" x="66" y="437" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-line-codegen" parent="1" style="rounded=1;fillColor=#EAB308;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="231" width="4" x="45" y="648" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-codegen" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=17;fontColor=#854D0E;" value="目标配置&#10;与代码生成" vertex="1">
+          <mxGeometry height="80" width="170" x="65" y="717" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-line-physical" parent="1" style="rounded=1;fillColor=#F97316;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="210" width="4" x="45" y="947" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-physical" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=17;fontColor=#9A3412;" value="部署物理化&#10;与可执行文件封装" vertex="1">
+          <mxGeometry height="90" width="180" x="66" y="1007" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-line-vm" parent="1" style="rounded=1;fillColor=#64748B;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="35" width="4" x="45" y="1207" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-vm" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=17;fontColor=#475569;" value="主机程序 Lowering" vertex="1">
+          <mxGeometry height="42" width="175" x="66" y="1203" as="geometry" />
+        </mxCell>
+        <mxCell id="iree-axis" parent="1" style="rounded=0;fillColor=#CBD5E1;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="1126" width="2" x="314" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-input" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-input" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=17;fontColor=#0F172A;" value="&lt;b&gt;01  input&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;输入转换与公共规范化&lt;/font&gt;" vertex="1">
+          <mxGeometry height="52" width="350" x="340" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-abi" parent="1" style="ellipse;html=1;fillColor=#FFFFFF;strokeColor=#94A3B8;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="12" width="12" x="309" y="157" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-abi" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#475569;" value="02  abi" vertex="1">
+          <mxGeometry height="38" width="350" x="340" y="144" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-pre" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="206" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-pre" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=17;fontColor=#0F172A;" value="&lt;b&gt;03　preprocessing&lt;/b&gt;&lt;br&gt;用户与插件预处理" vertex="1">
+          <mxGeometry height="52" width="350" x="340" y="188" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-global" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="267" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-global" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=17;fontColor=#0F172A;" value="&lt;b&gt;04  global-optimization&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;dispatch 前的全局张量优化&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="350" x="340" y="248" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-dispatch" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-dispatch" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=17;fontColor=#0F172A;" value="&lt;b&gt;05  dispatch-creation&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;融合计算并形成 dispatch 边界&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="350" x="340" y="386" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-flow" parent="1" style="ellipse;html=1;fillColor=#FFFFFF;strokeColor=#94A3B8;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="12" width="12" x="309" y="471" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-flow" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#334155;" value="&lt;b&gt;06  flow&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;outline dispatch 为 target executable&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="350" x="340" y="453" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-stream" parent="1" style="ellipse;html=1;fillColor=#FFFFFF;strokeColor=#94A3B8;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="12" width="12" x="309" y="537" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-stream" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#334155;" value="&lt;b&gt;07  stream&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;资源、时间线与命令调度&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="350" x="340" y="519" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-sources" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="648" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-sources" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=17;fontColor=#0F172A;" value="&lt;b&gt;08  executable-sources&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;设备分配与 executable 接口&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="350" x="340" y="629" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-config" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="726" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-config" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#0F172A;" value="&lt;b&gt;09  executable-configurations&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;选择目标 lowering 策略&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="365" x="340" y="711" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-targets" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="826" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-targets" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=17;fontColor=#0F172A;" value="&lt;b&gt;10  executable-targets&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;翻译 executable 为目标 IR&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="350" x="340" y="807" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-hal" parent="1" style="ellipse;html=1;fillColor=#2563EB;strokeColor=#2563EB;" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="308" y="1031" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-hal" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=17;fontColor=#0F172A;" value="&lt;b&gt;11  hal&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;host HAL 转换、链接与序列化&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="350" x="340" y="1011" as="geometry" />
+        </mxCell>
+        <mxCell id="dot-vm" parent="1" style="ellipse;html=1;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="12" width="12" x="309" y="1215" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-vm" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontColor=#334155;" value="&lt;b&gt;12  vm&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#64748B&quot; style=&quot;font-size:13px&quot;&gt;主机程序 lowering 为 VM module&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="350" x="340" y="1198" as="geometry" />
+        </mxCell>
+        <mxCell id="rail-input" parent="1" style="rounded=1;fillColor=#F97316;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="36" width="2" x="774" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="work-input-dot-1" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="81" as="geometry" />
+        </mxCell>
+        <mxCell id="work-input-1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;线性算子规范化：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;统一 ONNX 导入产生的线性计算表达。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="work-input-dot-2" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="117" as="geometry" />
+        </mxCell>
+        <mxCell id="work-input-2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;前端语义收敛：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;输出可继续进入 IREE 优化的张量 IR。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="rail-pre" parent="1" style="rounded=1;fillColor=#F97316;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="90" width="2" x="774" y="202" as="geometry" />
+        </mxCell>
+        <mxCell id="work-pre-dot" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="198" as="geometry" />
+        </mxCell>
+        <mxCell id="work-pre" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;b&gt;图级重组：&lt;/b&gt;异构块对角融合后调用原生横向融合，保留 M&amp;lt;16 限制。" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="work-global-dot-1" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="252" as="geometry" />
+        </mxCell>
+        <mxCell id="work-global-1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;b&gt;原生张量优化：&lt;/b&gt;沿用上游折叠与清理。" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="239" as="geometry" />
+        </mxCell>
+        <mxCell id="work-global-dot-2" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="288" as="geometry" />
+        </mxCell>
+        <mxCell id="work-global-2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;b&gt;阶段复用：&lt;/b&gt;不增加 global-optimization hook。" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="work-dispatch-dot" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="408" as="geometry" />
+        </mxCell>
+        <mxCell id="work-dispatch" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;b&gt;原生任务形成：&lt;/b&gt;按数据依赖建立 dispatch 边界，无自定义 hook。" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="work-native-dot" parent="1" style="ellipse;html=1;fillColor=#94A3B8;strokeColor=#94A3B8;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="506" as="geometry" />
+        </mxCell>
+        <mxCell id="work-native" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#475569;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#334155;font-weight:600&quot;&gt;原生调度复用：&lt;/td&gt;&lt;td style=&quot;color:#64748B&quot;&gt;保持 Flow 的 executable 划分和 Stream 的资源时序。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="493" as="geometry" />
+        </mxCell>
+        <mxCell id="rail-sources" parent="1" style="rounded=1;fillColor=#F97316;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="36" width="2" x="774" y="637" as="geometry" />
+        </mxCell>
+        <mxCell id="work-sources-dot-1" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="633" as="geometry" />
+        </mxCell>
+        <mxCell id="work-sources-1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;目标后端注册：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;声明 CIM 后端、可执行格式和支持类型。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="work-sources-dot-2" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="669" as="geometry" />
+        </mxCell>
+        <mxCell id="work-sources-2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;硬件配置：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;将 Array 与 SRAM 参数绑定到目标编译。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="656" as="geometry" />
+        </mxCell>
+        <mxCell id="rail-config" parent="1" style="rounded=1;fillColor=#F97316;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="36" width="2" x="774" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="work-config-dot-1" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="711" as="geometry" />
+        </mxCell>
+        <mxCell id="work-config-1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;Lowering 配置：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;选择目标翻译策略与 workgroup 划分。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="698" as="geometry" />
+        </mxCell>
+        <mxCell id="work-config-dot-2" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="747" as="geometry" />
+        </mxCell>
+        <mxCell id="work-config-2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;分块选择：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;确定满足 Array 约束的 M/N/K 整数切分。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="734" as="geometry" />
+        </mxCell>
+        <mxCell id="rail-targets" parent="1" style="rounded=1;fillColor=#F97316;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="72" width="2" x="774" y="797" as="geometry" />
+        </mxCell>
+        <mxCell id="work-targets-dot-1" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="793" as="geometry" />
+        </mxCell>
+        <mxCell id="work-targets-1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;IR lowering：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;完成 workgroup 分块、融合计算分解和二维合法化。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="work-targets-dot-2" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="829" as="geometry" />
+        </mxCell>
+        <mxCell id="work-targets-2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;缓冲区化：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;沿 IREE 路径物化 dispatch 张量和静态常量。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="816" as="geometry" />
+        </mxCell>
+        <mxCell id="work-targets-dot-3" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="865" as="geometry" />
+        </mxCell>
+        <mxCell id="work-targets-3" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;IR 转换：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;将 Linalg 降为合法的逻辑 CIM 程序。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="852" as="geometry" />
+        </mxCell>
+        <mxCell id="rail-hal" parent="1" style="rounded=1;fillColor=#F97316;strokeColor=none;html=1;" value="" vertex="1">
+          <mxGeometry height="144" width="2" x="774" y="966" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-dot-1" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="962" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;逻辑权重优化：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;执行横向拼接与可选权重复制。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="949" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-dot-2" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="998" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;Array 部署：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;统一完成权重去重、切分、放置和一次性初始化。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="985" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-dot-3" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="1034" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-3" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;SRAM 管理：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;物化数据搬运与临时缓冲，并按生命周期复用空间。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="1021" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-dot-4" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-4" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;指令物理化：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;展开 bit-serial 计算并完成 affine 地址 lowering。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="1057" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-dot-5" parent="1" style="ellipse;html=1;fillColor=#F97316;strokeColor=#F97316;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="1106" as="geometry" />
+        </mxCell>
+        <mxCell id="work-hal-5" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#334155;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#1E293B;font-weight:600&quot;&gt;可执行封装：&lt;/td&gt;&lt;td style=&quot;color:#475569&quot;&gt;从同一物理程序生成可执行载荷与 ISA。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="1093" as="geometry" />
+        </mxCell>
+        <mxCell id="work-vm-dot" parent="1" style="ellipse;html=1;fillColor=#94A3B8;strokeColor=#94A3B8;" value="" vertex="1">
+          <mxGeometry height="8" width="8" x="771" y="1217" as="geometry" />
+        </mxCell>
+        <mxCell id="work-vm" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=15;fontColor=#475569;" value="&lt;table style=&quot;width:100%;table-layout:fixed;border-collapse:collapse&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:145px;color:#334155;font-weight:600&quot;&gt;运行时衔接：&lt;/td&gt;&lt;td style=&quot;color:#64748B&quot;&gt;CIM executable 作为二进制进入原生 VM 主机程序。&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="34" width="620" x="796" y="1204" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

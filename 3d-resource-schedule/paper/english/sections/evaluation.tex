@@ -1,0 +1,57 @@
+\section{Evaluation}
+\label{sec:evaluation}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../../build/paper-english/07-cross-model-results.pdf}
+  \caption{Cross-model test performance at 2 GB/s and $\approx20\%$ additional replicas (compute-balanced single-replica baseline = 1).}
+  \label{fig:cross-model}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../../build/paper-english/04-main-results.pdf}
+  \caption{DeepSeek-V3 validation sweep (compute-balanced single-replica = 1). P/V strips show selected tracks for Planar/Vertical.}
+  \label{fig:main}
+\end{figure}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../../build/paper-english/05-capacity-mechanisms.pdf}
+  \caption{Planar validation latency across replica budgets. (a) T512 time above mean node compute time $\bar W$. (b) Decode components excluding fixed $T_{\mathrm{expert}}$, normalized by the same-bandwidth 0\%-budget total latency.}
+  \label{fig:capacity-mechanisms}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../../build/paper-english/06-scheduling-results.pdf}
+  \caption{Scheduling on test routes with frozen $\approx20\%$ deployments. (a) Network ($T_{\mathrm{mesh}}+T_{\mathrm{wait}}$) and serialization changes normalized by nearest/source-root $J_D$; diagonals show total change. (b) Node activity in the first test window; hatching marks time after completion.}
+  \label{fig:scheduling}
+\end{figure*}
+
+
+\subsection{Experimental Setup}
+
+We evaluate dense and expert FFNs in DeepSeek-V3, DeepSeek-V2-Lite, and Qwen2-57B-A14B~\cite{deepseekv32024,deepseekv22024,qwen22024}. DeepSeek-V3 uses seed-0 topic-correlated synthetic routes. DeepSeek-V2-Lite uses PrefetchMLP decode~\cite{prefetchmlp2026} and MoE-Beyond prefill routes~\cite{moebeyond2025}; Qwen2 uses HD-MoE sequences~\cite{hdmoe2025}. Optimization, validation, and test use disjoint 4,096-token blocks; hypergraph fitting uses 1,024 training traces. Prefill uses 32/128/512-token windows (T32/T128/T512), with one validation window and eight test windows per size.
+
+On a $4\times4$ mesh ($8192\times16384$ node planes), a $1.5\times$ FFN weight-volume target gives stack depths $D_s=460,11,39$ for the three models, respectively. Planar uses 8-bit activations and 2-GB/s local I/O; Vertical uses 5 bits and 1 GB/s, following Section~\ref{sec:hardware}. DeepSeek-V3 runs at 0.5/2/8 GB/s mesh bandwidth within each readout configuration at fixed expert execution times; the other models use 2 GB/s. Additional replica budgets cover 0--20\% of single-replica MoE units, counting Qwen2's shared FFN as eight routed-width units. Section~\ref{sec:framework}'s simulator computes latencies. Each configuration uses a compute-balanced single-replica baseline under the same runtime policies. Figs.~\ref{fig:cross-model}--\ref{fig:main} report decode speed ($J_D^{\mathrm{base}}/J_D$) and prefill throughput ($J_P^{\mathrm{base}}/J_P$); text reports reductions in mean latency.
+
+\subsection{Overall Performance}
+
+At 2 GB/s, the selected deployments with $\approx20\%$ additional replicas reduce decode latency by 15.18--18.46\% and prefill batch latency by 3.86--12.61\% against their respective baselines (Fig.~\ref{fig:cross-model}).
+
+\subsection{Prefill Work Distribution}
+
+For fixed DeepSeek-V3 validation routes and hardware, replication and spatial rearrangement preserve the FFN computations. Window completion time obeys $J_P\ge W_C\ge\bar W$, where $\bar W$ is the average accumulated node compute time. The T512 excess $J_P-\bar W$ in Fig.~\ref{fig:capacity-mechanisms}(a) comprises node skew $W_C-\bar W$, link excess $\max(W_L-W_C,0)$, and execution residual. The 20\%-budget Planar 2-GB/s T512 latency is 1.09\% above $\bar W$. Planar peak work approaches $\bar W$ by $\approx5\%$ budget; across all six configurations, this budget achieves 91.65--97.93\% of T512's 20\%-budget latency reduction (Fig.~\ref{fig:main}). The zero-budget Planar T512 case at 0.5 GB/s is link-bound.
+
+The 20\%-budget Planar 2-GB/s execution residuals span 2.06--2.29 ms across T32/T128/T512. As node compute work grows with window size, these similar absolute residuals occupy a smaller fraction of latency.
+
+With 20\% deployments frozen, per-expert round-robin balances request counts yet can accumulate different experts' requests on one shared node. Under identical root-selection and tree-routing rules, cumulative-work dispatch lowers Planar T128 peak work from 58.15 to 53.57 ms (Fig.~\ref{fig:scheduling}(b)). Across six DeepSeek-V3 configurations and three window sizes, mean test batch latency falls by 4.30--14.62\% relative to round-robin.
+
+\subsection{Decode Execution Choices}
+
+Decode continues to improve over 10--20\% budget (Fig.~\ref{fig:main}) as additional replicas and spatial rearrangement provide more execution choices. Expert computation remains fixed within each configuration (Fig.~\ref{fig:capacity-mechanisms}(b)). Across the Planar budget sweep, the 0.5-GB/s deployments reduce mesh transfer time while accepting more node serialization; at 8 GB/s, they reduce serialization while allowing more transfer time.
+
+In the Planar 0.5-GB/s validation case, a 1\%-budget hypergraph candidate lowers decode latency by 21.50\% but raises T512 latency by 17.21\% against the compute-balanced single-replica baseline. The selector retains the compute-balanced track under the prefill guard.
+
+On frozen 20\% deployments, root-only planning (nearest binding, movable root) recovers most of joint planning's 0.5-GB/s benefit (Fig.~\ref{fig:scheduling}(a)). The test baseline uses nearest binding with the input source as root. Moving the root changes the next layer's source and can redirect later bindings. At 8 GB/s on Planar, root-only reduces latency by 3.80\%; joint planning reduces it by 26.98\%, chiefly through less serialization among co-activated experts.

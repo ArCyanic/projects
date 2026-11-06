@@ -1,0 +1,29 @@
+\section{Background and Motivation}
+\label{sec:background}
+
+\subsection{3D CIM and MoE}
+
+CIM stores matrix weights in memory arrays and computes matrix--vector products where the weights reside. In analog implementations, input signals drive the programmed cells; accumulated currents or charges encode the weighted sums, which are digitized by the readout circuits. 3D CIM extends this organization with vertically stacked weight-storage layers~\cite{lee2022,jang2025,buchel2025}. The additional layers increase weight capacity per unit area and can share input and readout circuits, serializing co-resident operators within a node.
+
+An MoE layer replaces a dense FFN with expert FFNs. A gating network selects top-$k$ experts per token; their outputs are combined using gating weights~\cite{switch2022}. Some models include shared experts active on every token~\cite{deepseekmoe2024}. Prefill processes prompt tokens, whereas decode generates subsequent tokens autoregressively.
+
+\subsection{Related Work and Motivation}
+
+CIM compilers~\cite{pimcomp2023,cimmlc2024,cimflow2025} model 2D crossbar or digital macro arrays. On 3D stacks, 3D AIMC~\cite{buchel2025} maps matrix chunks to analog tile tiers with fixed MVM and per-bit transfer latencies, whereas OPTIMEX~\cite{sharma2025} assigns expert projections to SRAM/ReRAM tiers using crossbar counts and vertical tier distances. Comparing 3D CIM designs across stacked geometries and readout circuits requires a unified footprint and operator-timing model.
+
+\input{tables/framework-comparison}
+
+Table~\ref{tab:framework-comparison} compares deployment and execution scope. 2D compilers pair weight replication with deterministic dataflows for static graphs~\cite{pimcomp2023,cimmlc2024,cimflow2025}. Under MoE routing, 3D AIMC~\cite{buchel2025} schedules a token-wise operation graph on single-replica tiles without interconnect contention, while profile-guided methods optimize tier placement~\cite{sharma2025} or GPU-cluster affinity~\cite{exflow2024} offline. Our framework links 3D capacity-constrained mapping, contention-aware cross-layer simulation, and decode/prefill profiling on a shared deployment.
+
+Co-activated experts on one node execute serially; separating them across nodes can lengthen activation transfers. Offline mapping combines spatial rearrangement, which relocates expert weights across nodes according to routing traces, with weight replication, which uses shared 3D capacity for additional resident instances (replicas) of selected experts' weights.
+
+A fixed deployment still leaves coupled decode choices: nearest-replica dispatch ignores co-resident active compute, while a fixed aggregation node can lengthen branches. For a token at N0 activating $E_1,E_2,E_3$ in a $2\times2$ region of a $4\times4$ mesh (Fig.~\ref{fig:mechanism}(a)), nearest-replica binding with node-index tie-breaking serializes $E_1,E_2$ on N1 and gathers outputs at N0, the root of the reduction tree (reduction root), in $6\tau$ (Fig.~\ref{fig:mechanism}(b)). Jointly binding $E_2$ to N4's $E_2'$ and selecting N5 ($E_3$'s node) as reduction root runs all three experts in parallel in $4\tau$ (Fig.~\ref{fig:mechanism}(c)), making N5 the next FFN's input source.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{../../build/paper-english/motivation.pdf}
+  \caption{Runtime scheduling on one fixed expert placement ($2\tau$ per expert, $\tau$ per hop, zero local summation time). S denotes input source; R denotes reduction root and next FFN source.}
+  \label{fig:mechanism}
+\end{figure}
+
+During prefill, per-expert round-robin splits each expert's requests across replicas yet ignores co-resident experts, which can overload shared nodes. The scheduler therefore selects replicas using each node's cumulative assigned execution time. Section~\ref{sec:hardware} defines the 3D footprints, operator execution times, and transfer timings.

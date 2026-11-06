@@ -1,0 +1,1 @@
+- Use conda venv `npu` to run python scripts.

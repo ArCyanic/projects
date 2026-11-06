@@ -1,0 +1,82 @@
+\section{Hardware Abstraction and Cost Model}
+\label{sec:hardware}
+
+The hardware model supplies 3D storage footprints, operator execution times, and external activation payloads to the mapper and simulator.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../../build/paper-english/hardware.pdf}
+  \caption{Hardware hierarchy and local readout. (a) Compute nodes with Sub-Cubes (C) and routers. (b) Node resources surrounding a Sub-Cube. (c) A Unit-Cube with $D_u$ weight layers and shared input and readout circuits. (d) Planar digitizes local results before digital reduction; Vertical accumulates $d$ slices before conversion. Blue links carry digital results.}
+  \label{fig:hardware}
+\end{figure*}
+
+\input{tables/hardware-prototypes}
+
+\subsection{Architecture Model}
+
+A Unit-Cube stores $D_u$ weight layers and performs an $h_u\times w_u$ local matrix--vector product, setting input-slice and output-partition granularity (Fig.~\ref{fig:hardware}(c)). A Sub-Cube groups units with activation buffers, input distribution, and result combination (Fig.~\ref{fig:hardware}(b)). Its extent $H\times W\times D_s$ counts logical rows, columns, and weight layers. A node adds control and a router; $G_H\times G_W$ nodes form the mesh.
+
+Configurations specify geometry, activation width, and operator/network timing. Array parallelism and slice pipelining operate within an operator, whereas shared Sub-Cube circuits serialize co-resident operators on a node. Table~\ref{tab:hardware-prototypes} compares Unit-Cube and native macro geometries for five designs. Jang et al.'s NAND PIM and 3D-FPIM calibrate operator timing~\cite{jang2025,lee2022}.
+
+\subsection{Weight-Cube Representation}
+
+Each expert contains fused gate/up and down projections. For an operator with logical input/output lengths $K_o,M_o$, the stored column count is $C_w=2M_o$ for fused gate/up and $C_w=M_o$ for down. The compiler produces a logical Weight-Cube descriptor:
+\begin{equation}
+  c=\big((H_c,W_c,D_c),\,T_c,\,V_c^{\mathrm{in}},\,V_c^{\mathrm{out}}\big).
+  \label{eq:weight-cube}
+\end{equation}
+The compiler divides $K_o$ inputs into $\lceil K_o/h_u\rceil$ slices. Planar maps slices within one weight layer ($d=1$); Vertical stacks groups of $d$ slices across $d$ weight layers. After choosing $d$ for the full operator (Section~\ref{sec:hardware}-C), the compiler partitions input groups and stored columns into $F_H$ and $F_W$ sections to fit the node plane, padding to equal sizes. The resulting $F_c=F_HF_W$ sections each occupy $H_c\times W_c$ in the plane and $d$ layers in depth. Consecutive depth ranges give $D_c=F_cd$.
+
+The in-plane dimensions $H_c,W_c$ align to $h_u,w_u$. Nonnegative placement origins $(x_c,y_c,z_c)$ must satisfy $x_c+H_c\leq H$, $y_c+W_c\leq W$, and $z_c+D_c\leq D_s$, with pairwise non-overlapping block extents. The mapper uses these conditions for placement feasibility.
+
+The operator execution time $T_c$ covers input loading, array computation, conversion, partial-sum combination, and output writes within one node. Section~\ref{sec:framework} accounts for mesh transfers and contention for node and link resources. Across sections, the operator retains $K_o$ inputs and $M_o$ outputs; fused gate/up emits one gated $M_o$-element vector. With activation width $b_{\mathrm{act}}$, $V_c^{\mathrm{in}}=V(K_o,b_{\mathrm{act}})$ and $V_c^{\mathrm{out}}=V(M_o,b_{\mathrm{act}})$, where $V(n,b)=\lceil nb/8\rceil$ bytes.
+
+\subsection{Operator Execution Time}
+
+A section has logical lengths $K=\lceil K_o/F_H\rceil$ and $M=\lceil M_o/F_W\rceil$. Let $S=\lceil K/h_u\rceil$ and $Q=\lceil M/w_u\rceil$. Times are in nanoseconds and bandwidths in bytes per nanosecond.
+
+\textit{Planar.} The input path issues $S$ slices at interval $t_{\mathrm{issue}}$; the last result arrives after $t_{\mathrm{mvm}}+(S-1)t_{\mathrm{issue}}$. A fitted tail adds binary-tree reduction over $\lceil\log_2 S\rceil$ levels and writes across $Q$ output partitions:
+\begin{equation}
+  \begin{aligned}
+    t_{\mathrm{sec}}^{\mathrm{P}}(K,M)
+      &=t_{\mathrm{mvm}}+(S-1)t_{\mathrm{issue}}\\
+      &\quad+\operatorname{round}\!\left(\tau_{\mathrm{red}}\lceil\log_2 S\rceil\right)
+      +\operatorname{round}(\tau_{\mathrm{out}}Q).
+  \end{aligned}
+  \label{eq:planar-time}
+\end{equation}
+The coefficients $\tau_{\mathrm{red}},\tau_{\mathrm{out}}$ are fitted times per reduction level and output partition. Each tail term rounds separately to integer nanoseconds; input bandwidth $B_{\mathrm{in}}$ sets $t_{\mathrm{issue}}=\lceil V(h_u,b_{\mathrm{act}})/B_{\mathrm{in}}\rceil$.
+
+\textit{Vertical.} The $S$ slices form $P=\lceil S/d\rceil$ groups padded to depth $d$. Groups operate in parallel; each performs $d$ sequential stack steps and one final conversion. The model serializes input loading, these array operations, $P-1$ digital vector additions, and output writing. With $T_{\mathrm{in}}(K)=\lceil V(K,b_{\mathrm{act}})/B_{\mathrm{in}}\rceil$ and $T_{\mathrm{out}}(M)=\lceil V(M,b_{\mathrm{act}})/B_{\mathrm{out}}\rceil$, section time is
+\begin{equation}
+  \begin{aligned}
+    t_{\mathrm{sec}}^{\mathrm{V}}(K,M,d)
+      &=T_{\mathrm{in}}(K)+t_0+d\,t_{\mathrm{step}}\\
+      &\quad+(P-1)t_{\mathrm{add}}+T_{\mathrm{out}}(M).
+  \end{aligned}
+  \label{eq:vertical-time}
+\end{equation}
+The affine stack term combines setup, integration, switching, and conversion. Increasing $d$ lengthens this sequence but can reduce $P$, trading analog time against digital combination.
+
+The compiler chooses $d$ using full input length $K_o$, minimizing the depth-dependent terms of~\eqref{eq:vertical-time} over $1\leq d\leq\min(\lceil K_o/h_u\rceil,D_u)$. It then forms aligned sections and computes $T_c=F_ct_{\mathrm{sec}}$. The expert execution time $T_e$ sums its gate/up and down block times.
+
+% Queue the two-column overview before Section IV.
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{../../build/paper-english/framework.pdf}
+  \caption{Deployment and execution framework. Dashed arrows show budget progression and latency feedback.}
+  \label{fig:framework}
+\end{figure*}
+
+For Planar, $t_{\mathrm{mvm}}=2000$ ns and $t_{\mathrm{issue}}=64$ ns. Jang et al. report a simulated 8270-ns $7168\times7168$ MVM under hierarchy mapping~\cite{jang2025}. With $S=56,Q=14$, the input--compute span is 5520 ns; equally splitting the 2750-ns fitted tail gives $\tau_{\mathrm{red}}=1375/6$ ns and $\tau_{\mathrm{out}}=1375/14$ ns.
+
+For Vertical, 3D-FPIM's one setup, $d$ integrations, $d-1$ switches, and final conversion contribute $105+32d+170(d-1)+256$ ns~\cite{lee2022}, giving $t_0=191$ ns and $t_{\mathrm{step}}=202$ ns. The evaluated profile sets $t_{\mathrm{add}}=128$ ns per digital vector addition.
+
+\subsection{Network Transfer Time}
+
+The expert's external input and output vectors cross mesh links; its gate/up intermediate vector remains local. For payload $V$, a directed link with bandwidth $B_{\mathrm{mesh}}$ provides packet serialization time
+\begin{equation}
+  t_{\mathrm{hop}}(V)=\left\lceil\frac{V}{B_{\mathrm{mesh}}}\right\rceil.
+  \label{eq:hop-time}
+\end{equation}
+A hop starts when its payload is ready and the directed link is free; opposite directions are independent. The evaluated policies use shortest-path multicast and reduction trees. A shared multicast edge carries one transfer; nodes combine available expert outputs before forwarding, with zero modeled inter-expert arithmetic time. The simulator in Section~\ref{sec:framework} advances transfers using task dependencies and node/link availability.

@@ -1,0 +1,16 @@
+\RequirePackage[T1]{fontenc}
+\documentclass[conference,letterpaper,10pt]{IEEEtran}
+\usepackage{array}
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={3D-CIM Hardware Prototype Comparison},pdfauthor={}}
+
+\begin{document}
+\input{tables/hardware-prototypes}
+
+The table compares Unit-Cube and native macro geometries for five reference designs. A hardware configuration separately specifies the model's logical node dimensions $(H,W,D_s)$, mesh size, and timing parameters. Unit widths $(h_u,w_u)$ determine input slicing and output partitioning; node bounds constrain Weight-Cube placement. The evaluated operator timing models use Jang et al. and 3D-FPIM as calibration references.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}

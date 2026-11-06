@@ -1,0 +1,290 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from cim_compiler.pipeline import emit_pipeline_artifacts  # noqa: E402
+
+
+DEPLOYMENT_FIELDS = (
+    "pipeline",
+    "regions",
+    "programmed_cells",
+    "occupancy",
+    "fragmentation_cells",
+    "payload_bytes",
+)
+RUNTIME_FIELDS = (
+    "pipeline",
+    "mvm_windows",
+    "bit_rounds",
+    "sram_peak_bytes",
+    "sram_copy_bytes",
+)
+ARRAY_ROWS = 1024
+ARRAY_INT8_COLUMNS = 512
+MetricValue = str | int | tuple[tuple[int, int], ...]
+
+
+def split_operands(text: str) -> list[str]:
+    """Split an ISA operand list on top-level commas, keeping `binding[o, a]`
+    and `embedded[a]` storage tags intact."""
+    values: list[str] = []
+    current: list[str] = []
+    depth = 0
+    for char in text:
+        if char == "[":
+            depth += 1
+        elif char == "]":
+            depth -= 1
+        if char == "," and depth == 0:
+            values.append("".join(current).strip())
+            current = []
+        else:
+            current.append(char)
+    values.append("".join(current).strip())
+    return values
+
+
+def isa_metrics(
+    isa_path: Path, payload_path: Path, pipeline: str
+) -> dict[str, MetricValue]:
+    mvm_windows = bit_rounds = regions = programmed_cells = 0
+    mvm_tile_shapes: list[tuple[int, int]] = []
+    min_row = min_cell_column = 1 << 30
+    max_row = max_cell_column = 0
+    sram_peak_bytes = sram_copy_bytes = 0
+
+    def touch(address: str, size: int) -> None:
+        nonlocal sram_peak_bytes
+        if address.startswith(("binding[", "embedded[")):
+            return
+        base = int(address.split("+", 1)[0])
+        sram_peak_bytes = max(sram_peak_bytes, base + size)
+
+    for line in isa_path.read_text().splitlines():
+        opcode, operands = line.split(" ", 1)
+        values = split_operands(operands)
+        if opcode == "cim.array.load.i8":
+            row, bit_column, rows, columns = map(int, values[-4:])
+            cell_column = bit_column // 8
+            regions += 1
+            programmed_cells += rows * columns
+            min_row = min(min_row, row)
+            min_cell_column = min(min_cell_column, cell_column)
+            max_row = max(max_row, row + rows)
+            max_cell_column = max(max_cell_column, cell_column + columns)
+        elif opcode.startswith("mem.copy."):
+            destination_bytes = int(opcode.split(".")[2][1:]) // 8
+            source_bytes = int(opcode.split(".")[3][1:]) // 8
+            count = int(values[-1])
+            sram_copy_bytes += count * destination_bytes
+            touch(values[0], count * destination_bytes)
+            touch(values[1], count * source_bytes)
+        elif opcode.startswith("cim.bit."):
+            activation_bytes = int(opcode.split(".")[2][1:]) // 8
+            k, n = map(int, values[-2:])
+            bit_rounds += 1
+            if int(values[2]) == 0:
+                mvm_windows += 1
+                mvm_tile_shapes.append((k, n))
+            touch(values[0], n * 4)
+            touch(values[1], k * activation_bytes)
+        elif opcode.startswith("elt."):
+            dtype_bytes = int(opcode.split(".")[2][1:]) // 8
+            size = int(values[-1]) * dtype_bytes
+            touch(values[0], size)
+            touch(values[1], size)
+            if opcode.endswith(".vv"):
+                touch(values[2], size)
+
+    footprint = (max_row - min_row) * (max_cell_column - min_cell_column)
+    return {
+        "pipeline": pipeline,
+        "regions": regions,
+        "programmed_cells": programmed_cells,
+        "occupancy": (
+            f"{100 * programmed_cells / (ARRAY_ROWS * ARRAY_INT8_COLUMNS):.2f}%"
+        ),
+        "fragmentation_cells": footprint - programmed_cells,
+        "payload_bytes": payload_path.stat().st_size,
+        "mvm_windows": mvm_windows,
+        "mvm_tile_shapes": tuple(mvm_tile_shapes),
+        "bit_rounds": bit_rounds,
+        "sram_peak_bytes": sram_peak_bytes,
+        "sram_copy_bytes": sram_copy_bytes,
+    }
+
+
+def compile_metrics(
+    model_name: str,
+    configurations: tuple[tuple[str, str, str], ...],
+    output_dir: Path,
+) -> list[dict[str, MetricValue]]:
+    rows = []
+    for label, pipeline, sram_allocation in configurations:
+        artifacts = emit_pipeline_artifacts(
+            REPO_ROOT / f"onnx/{model_name}.onnx",
+            output_dir / model_name / label,
+            optimization_pipeline=pipeline,
+            sram_allocation=sram_allocation,
+        )
+        rows.append(isa_metrics(artifacts["isa"], artifacts["payload"], label))
+    return rows
+
+
+def print_table(
+    rows: list[dict[str, MetricValue]], fields: tuple[str, ...]
+) -> None:
+    widths = {
+        field: max(len(field), *(len(str(row[field])) for row in rows))
+        for field in fields
+    }
+    print("  ".join(field.ljust(widths[field]) for field in fields))
+    for row in rows:
+        print("  ".join(str(row[field]).ljust(widths[field]) for field in fields))
+
+
+def print_metrics(name: str, rows: list[dict[str, MetricValue]]) -> None:
+    print(name)
+    print("deployment (one time)")
+    print_table(rows, DEPLOYMENT_FIELDS)
+    print("runtime (per workgroup)")
+    print_table(rows, RUNTIME_FIELDS)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Compile CIM showcases and report ablation metrics."
+    )
+    parser.add_argument("--output-dir", type=Path, required=True)
+    args = parser.parse_args()
+
+    horizontal_rows = compile_metrics(
+        "resource_showcase",
+        (("direct", "direct", "reuse"), ("packed", "packed", "reuse")),
+        args.output_dir,
+    )
+    print_metrics("horizontal packing", horizontal_rows)
+
+    replication_rows = compile_metrics(
+        "weight_replication_showcase",
+        (
+            ("heterogeneous", "heterogeneous", "reuse"),
+            ("replicated", "replicated", "reuse"),
+        ),
+        args.output_dir,
+    )
+    print()
+    print_metrics("weight replication", replication_rows)
+
+    heterogeneous_rows = compile_metrics(
+        "heterogeneous_fusion_showcase",
+        (
+            ("packed", "packed", "reuse"),
+            ("heterogeneous", "heterogeneous", "reuse"),
+        ),
+        args.output_dir,
+    )
+    print()
+    print_metrics("heterogeneous fusion", heterogeneous_rows)
+
+    integrated_rows = compile_metrics(
+        "integrated_showcase",
+        (
+            ("direct", "direct", "sequential"),
+            ("packed", "packed", "sequential"),
+            ("heterogeneous", "heterogeneous", "sequential"),
+            ("replicated", "replicated", "sequential"),
+            ("full", "replicated", "reuse"),
+        ),
+        args.output_dir,
+    )
+    # The last two integrated configurations differ only in SRAM allocation.
+    # Reuse their measurements instead of compiling the same models again.
+    sram_rows = [
+        {**row, "pipeline": strategy}
+        for row, strategy in zip(integrated_rows[-2:], ("sequential", "reuse"))
+    ]
+    print()
+    print_metrics("SRAM lifetime reuse", sram_rows)
+    print()
+    print_metrics("integrated optimization", integrated_rows)
+
+    legalization_rows = compile_metrics(
+        "legalization_showcase",
+        (("legalized", "direct", "reuse"),),
+        args.output_dir,
+    )
+    print()
+    print_metrics("two-dimensional legalization", legalization_rows)
+
+    direct, packed = horizontal_rows
+    heterogeneous_baseline, heterogeneous = heterogeneous_rows
+    replication_baseline, replicated = replication_rows
+    sram_baseline, reused = sram_rows
+    edges = (
+        (
+            "heterogeneous fusion MVM windows",
+            heterogeneous_baseline["mvm_windows"],
+            heterogeneous["mvm_windows"],
+        ),
+        (
+            "horizontal packing MVM windows",
+            direct["mvm_windows"],
+            packed["mvm_windows"],
+        ),
+        (
+            "weight replication bit rounds",
+            replication_baseline["bit_rounds"],
+            replicated["bit_rounds"],
+        ),
+        (
+            "SRAM lifetime reuse peak bytes",
+            sram_baseline["sram_peak_bytes"],
+            reused["sram_peak_bytes"],
+        ),
+    )
+    print()
+    for label, baseline, result in edges:
+        reduction = 100 * (1 - result / baseline)
+        print(f"{label}: {baseline} -> {result} ({reduction:.1f}% reduction)")
+    print(
+        "heterogeneous fusion SRAM peak bytes: "
+        f"{heterogeneous_baseline['sram_peak_bytes']} -> "
+        f"{heterogeneous['sram_peak_bytes']}"
+    )
+    integrated_direct, *_, integrated_full = integrated_rows
+    print(
+        "integrated MVM windows: "
+        f"{integrated_direct['mvm_windows']} -> "
+        f"{integrated_full['mvm_windows']}"
+    )
+    print(
+        "integrated bit rounds: "
+        f"{integrated_direct['bit_rounds']} -> "
+        f"{integrated_full['bit_rounds']}"
+    )
+    print(
+        "integrated SRAM peak bytes: "
+        f"{integrated_direct['sram_peak_bytes']} -> "
+        f"{integrated_full['sram_peak_bytes']}"
+    )
+    legalized = legalization_rows[0]
+    shapes = legalized["mvm_tile_shapes"]
+    print(
+        "legalization tiles [K,N]: "
+        + " + ".join(f"{k}x{n}" for k, n in shapes)
+    )
+    print(f"legalization MVM windows: {legalized['mvm_windows']}")
+    print(args.output_dir)
+
+
+if __name__ == "__main__":
+    main()

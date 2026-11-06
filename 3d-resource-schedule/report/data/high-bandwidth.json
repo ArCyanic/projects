@@ -1,0 +1,78 @@
+[
+  {
+    "bandwidth": 8,
+    "serial": 41.75146484375,
+    "hops": 207.31640625,
+    "mean_ns": 1580918.869140625,
+    "reference_ns": 1402067.4453125,
+    "source": "build/dac-paper-full-workload/deepseek-v3/planar/8-hypergraph.json",
+    "deployment_artifact": "build/dac-paper-full-workload/deepseek-v3/planar/8-hypergraph.deployment.npz",
+    "baseline": "full-workload-balanced-single-copy",
+    "train_route_split": [
+      0,
+      1024
+    ],
+    "validation_route_split": [
+      4096,
+      8192
+    ],
+    "baseline_mean_ns": 1771210.3017578125
+  },
+  {
+    "bandwidth": 16,
+    "serial": 41.6298828125,
+    "hops": 212.166259765625,
+    "mean_ns": 1487793.21484375,
+    "reference_ns": 1349203.4453125,
+    "source": "build/design-report-restoration/planar-16.json",
+    "deployment_artifact": "build/design-report-restoration/planar-16.deployment.npz",
+    "baseline": "full-workload-balanced-single-copy",
+    "train_route_split": [
+      0,
+      1024
+    ],
+    "validation_route_split": [
+      4096,
+      8192
+    ],
+    "baseline_mean_ns": 1682177.6298828125
+  },
+  {
+    "bandwidth": 32,
+    "serial": 41.68603515625,
+    "hops": 214.020751953125,
+    "mean_ns": 1440939.529296875,
+    "reference_ns": 1322771.4453125,
+    "source": "build/design-report-restoration/planar-32.json",
+    "deployment_artifact": "build/design-report-restoration/planar-32.deployment.npz",
+    "baseline": "full-workload-balanced-single-copy",
+    "train_route_split": [
+      0,
+      1024
+    ],
+    "validation_route_split": [
+      4096,
+      8192
+    ],
+    "baseline_mean_ns": 1637661.2939453125
+  },
+  {
+    "bandwidth": 64,
+    "serial": 41.642822265625,
+    "hops": 213.622802734375,
+    "mean_ns": 1416158.7451171875,
+    "reference_ns": 1309555.4453125,
+    "source": "build/design-report-restoration/planar-64.json",
+    "deployment_artifact": "build/design-report-restoration/planar-64.deployment.npz",
+    "baseline": "full-workload-balanced-single-copy",
+    "train_route_split": [
+      0,
+      1024
+    ],
+    "validation_route_split": [
+      4096,
+      8192
+    ],
+    "baseline_mean_ns": 1615403.1259765625
+  }
+]

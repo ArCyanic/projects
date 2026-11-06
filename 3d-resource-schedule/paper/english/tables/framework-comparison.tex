@@ -1,0 +1,23 @@
+\begin{table}[t]
+  \caption{Scope of CIM Compilation and MoE Deployment}
+  \label{tab:framework-comparison}
+  \centering
+  \footnotesize
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc@{}}
+    \hline
+    Work & \shortstack{3D\\capacity} & \shortstack{Routing\\data} & \shortstack{Weight\\replicas} & \shortstack{Replica\\selection} & \shortstack{D/P\\balance} \\
+    \hline
+    PIMCOMP~\cite{pimcomp2023} & -- & -- & $\checkmark$ & -- & -- \\
+    CIM-MLC~\cite{cimmlc2024} & -- & -- & $\checkmark$ & -- & -- \\
+    CIMFlow~\cite{cimflow2025} & -- & -- & $\checkmark$ & -- & -- \\
+    \hline
+    3D AIMC~\cite{buchel2025} & $\checkmark$ & Token & -- & -- & -- \\
+    OPTIMEX~\cite{sharma2025} & $\checkmark$ & Profile & -- & -- & -- \\
+    \hline
+    This work & $\checkmark$ & Token & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+    \hline
+  \end{tabular*}
+  \par\smallskip
+  \raggedright
+  3D capacity: stacked-array storage; routing data: per-token expert selections (Token) or activation statistics (Profile); weight replicas: static replication; replica selection: runtime dispatch among resident replicas; D/P balance: decode/prefill optimization on a shared deployment. $\checkmark$: explicit scope; --: outside scope.
+\end{table}

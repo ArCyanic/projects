@@ -1,0 +1,40 @@
+\RequirePackage[T1]{fontenc}
+\documentclass[conference,letterpaper,10pt]{IEEEtran}
+\usepackage{array}
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={A Deployment and Execution Framework for MoE Inference on 3D CIM Systems},
+  pdfauthor={},
+  pdfsubject={},
+  pdfkeywords={3D compute-in-memory, mixture-of-experts, weight mapping, dataflow scheduling}
+}
+
+\title{A Deployment and Execution Framework for MoE Inference on 3D CIM Systems}
+% Reserve the standard author-block space for the final version, anonymously.
+\author{\IEEEauthorblockN{\strut}\IEEEauthorblockA{\strut\\\strut\\\strut}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The high storage density of three-dimensional compute-in-memory (3D CIM) enables all experts of mixture-of-experts (MoE) models to reside on-chip, eliminating off-chip memory accesses for weight reads. Existing CIM compilation and simulation frameworks adopt different hardware representations and execution models, complicating MoE deployment and performance evaluation across 3D CIM architectures. Weight mapping and dataflow scheduling under dynamic routing must also balance decode latency against prefill throughput. We propose a deployment and execution framework for MoE inference that establishes a unified hardware abstraction and cost model for 3D CIM, connecting weight deployment, inference execution, and performance analysis. The framework optimizes expert replicas, spatial layouts, and execution locations through mapping and scheduling algorithms. Across three MoE models, adding approximately 20\% more expert replicas reduces decode latency and prefill batch latency by 15.18\%--18.46\% and 3.86\%--12.61\%, respectively, compared with a single-replica deployment balanced by the full workload.
+\end{abstract}
+
+\begin{IEEEkeywords}
+3D compute-in-memory, mixture-of-experts, weight mapping, dataflow scheduling, performance modeling
+\end{IEEEkeywords}
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/hardware}
+\input{sections/methodology}
+\input{sections/evaluation}
+
+% DAC 2027 requires a separate page containing references only.
+\clearpage
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}
